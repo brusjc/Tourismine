@@ -194,6 +194,7 @@ class PuntoController extends Controller
     public function store(Request $request)
     {
 
+
         dd($request);
         return "estamos aqui";
         $punto = new Punto;
