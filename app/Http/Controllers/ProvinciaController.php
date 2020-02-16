@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Provincia;
 
 class ProvinciaController extends Controller
 {
@@ -66,6 +67,30 @@ class ProvinciaController extends Controller
             'status' => $success,
             'data' => $data
         ]);
-
     }
+
+    public function index()
+    {
+        try {
+            $dato = Provincia::orderBy('nombre', 'asc')
+                ->with('Estado')
+                ->get();
+        } catch (\Exception $e) {
+            return response()->json(
+                ['success'=>['error'=>1, 'message'=>"Error al obtener las provincias"], 'data'=>$e]
+            );
+        }
+
+        if (count($dato)>0){
+            return response()->json(
+                ['success'=>['error'=>0, 'message'=>""], 'data'=>$dato]
+            );
+        } else {
+            return response()->json(
+                ['success'=>['error'=>2, 'message'=>"No hay ninguna provincia"], 'data'=>null]
+            );
+        }
+    }
+
+
 }

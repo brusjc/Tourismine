@@ -14,10 +14,6 @@ Route::group(['middleware' => ['web']], function () {
     ]);
 
 
-//**********
-//* Master *
-//**********
-    Route::get('/master', function () { return view('paginas.master.master'); }); 
 
 
 //**********
@@ -44,9 +40,17 @@ Route::group(['middleware' => 'auth'], function () {
     //**********
     //* Master *
     //**********
+    //Route::get('/master', function () { return view('paginas.master.master'); });
+    Route::get('/master', 'PuntoController@PuntosxEstado');
     Route::get('/master/puntos', 'PuntoController@PuntosxEstado');
-    Route::get('/master/punto/nuevo', 'PuntoController@create');
-    Route::post('puntos', 'PuntoController@store');  //Respuesta del formulario crear
+
+    //Nuevo punto 
+    Route::get('/masterPuntoNuevo', 'PuntoController@create');  //Entrada a formulario crear
+    Route::post('masterPuntoNuevo2', 'PuntoController@store');  //Respuesta del formulario crear
+
+    //Modificar punto 
+    Route::get('/masterPuntoModificar/{id}', 'PuntoController@edit');  //Entrada a formulario editar
+    Route::post('masterPuntoModificar2/{id}', 'PuntoController@update');  //Respuesta del formulario crear
 
 
 

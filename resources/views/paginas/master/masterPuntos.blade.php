@@ -26,21 +26,22 @@
 @if(!is_null($puntos['data']))
 	@section('tablapuntos')
 		@foreach($puntos['data'] as $key1=>$punto)
-	        @if($key1==0 || $puntos['data'][$key1]['estado'][0]['id']==$puntos['data'][$key1-1]['estado'][0]['id'])
+	        @if($key1==0 || $puntos['data'][$key1]['estado'][0]['id']!=$puntos['data'][$key1-1]['estado'][0]['id'])
 		        <tr>
-		            <td colspan="3"><h3>{{$punto['estado'][0]['nombre']}}</h3></td>
+		            <td colspan="4"><h3>{{$punto['estado'][0]['nombre']}}</h3></td>
 		        </tr>
 	        @endif
-	        @if($key1==0 || $puntos['data'][$key1]['provincia']['id']==$puntos['data'][$key1-1]['provincia']['id'])
+	        @if($key1==0 || $puntos['data'][$key1]['provincia']['id']!=$puntos['data'][$key1-1]['provincia']['id'])
 		        <tr>
 		            <td></td>
-		            <td colspan="2">{{$punto['provincia']['nombre']}}</td>
+		            <td colspan="3">{{$punto['provincia']['nombre']}}</td>
 		        </tr>
 	        @endif
 	        <tr>
 	            <td></td>
 	            <td></td>
-	            <td>{{$punto['nombre']}}</td>
+	            <td colspan="2">{{$punto['nombre']}}</td>
+	            <td><a href="/masterPuntoModificar/{{$punto['id']}}"><i class="fa fa-edit"></i></a></td>
 	        </tr>
 		@endforeach        
 	@endsection

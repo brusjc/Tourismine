@@ -1,11 +1,11 @@
 @extends('adminlte::layouts.app_master')
 
 @section('contentheader_title')
-    {{trans('p_home.Title')}}
+    {{trans('p_masterPuntoModificar.Title')}}
 @endsection
 
 @section('H1')
-    {{trans('p_home.H1')}}
+    {{trans('p_masterPuntoModificar.H1')}}
 @endsection
 
 @section('descripcion')
@@ -38,7 +38,7 @@
 						</div>
 					@endif
 				</div>
-				<form action="/masterPuntoNuevo2" method="POST" class="form-horizontal">
+				<form action="/masterPuntoModificar2/{{$punto['data']['id']}}" method="POST" class="form-horizontal">
 					{{csrf_field()}}
 					<div class="box-body">
 
@@ -46,11 +46,13 @@
 							<label for="provincia" class="col-sm-2 control-label">{{trans('punto.Provincia')}}</label>
 							<div class="col-sm-7">
 								<select class="form-control select2" name="provincia" id="provincia">
-									@foreach($puntos['data'] as $punto)
-										@if($punto['id'] == old('provincia'))
-											<option value="{{$punto['id']}}" selected>{{$punto['nombre']}}</option>
+									@foreach($provincias['data'] as $provincia)
+										@if($provincia['id'] == old('provincia'))
+											<option value="{{$punto['data']['id']}}" selected>{{$provincia['nombre']}}</option>
+										@elseif($provincia['id'] == $punto['data']['provincia_id'])
+											<option value="{{$punto['data']['id']}}" selected>{{$provincia['nombre']}}</option>
 										@else
-											<option value="{{$punto['id']}}">{{$punto['nombre']}}</option>
+											<option value="{{$provincia['id']}}">{{$provincia['nombre']}}</option>
 										@endif
 									@endforeach
 								</select>
@@ -60,7 +62,11 @@
 						<div class="form-group">
 							<label for="Nombre" class="col-sm-2 control-label">{{trans('punto.Nombre')}}</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" name="nombre" id="Nombre" placeholder="Enter ..."  value="{{ old('nombre') }}">
+								@if({{ old('nombre') }})
+									<input type="text" class="form-control" name="nombre" id="Nombre" placeholder="Enter ..." value="{{old('nombre')}}">
+								@else
+									<input type="text" class="form-control" name="nombre" id="Nombre" placeholder="Enter ..." value="{{$punto['data']['nombre']}}">
+								@endif
 							</div>
 						</div>
 
@@ -180,7 +186,7 @@
 					</div>
 
 					<div class="box-footer">
-						<button type="submit" class="btn btn-info pull-right">{{trans('punto.Guardar')}}</button>
+						<button type="submit" class="btn btn-info pull-right">{{trans('punto.Modificar')}}</button>
 					</div>
 				</form>
 			</div>

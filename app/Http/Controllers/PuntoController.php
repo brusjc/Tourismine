@@ -8,6 +8,9 @@ use Auth;
 use App\Punto;
 use App\Provincia;
 use App\usuariosPuntosInteres;
+use App\Http\Requests\PuntoRequest;
+
+//app\Http\Requests\PuntoRequest;
 
 use App\Helpers\Utils;
 
@@ -37,17 +40,17 @@ class PuntoController extends Controller
         if ($user_id == null || $latitud_superior == null || $longitud_superior == null || $latitud_inferior == null || $longitud_inferior == null) {
 
             $success = [
-                'error' => 1,
-                'message' => "Los campos introducidos no son correctos"
+                'error'=>1,
+                'message'=>"Los campos introducidos no son correctos"
             ];
 
             $data = [
-                'puntos_interes' => []
+                'puntos_interes'=>[]
             ];
 
             return response()->json([
-                'status' => $success,
-                'data' => $data
+                'status'=>$success,
+                'data'=>$data
             ]);
 
         }
@@ -60,12 +63,12 @@ class PuntoController extends Controller
                 $visitado = usuariosPuntosInteres::where('user_id', $user_id)->where('id_punto_interes', $respuesta[$i]->id)->get();
 
                 $puntoInteres = [
-                    'id' => $respuesta[$i]->id,
-                    'nombre' => $respuesta[$i]->nombre,
-                    'latitud' => $respuesta[$i]->latitud,
-                    'longitud' => $respuesta[$i]->longitud,
-                    'tipo' => $respuesta[$i]->tipo,
-                    'visitado' => (count($visitado) > 0 ? 1 : 0)
+                    'id'=>$respuesta[$i]->id,
+                    'nombre'=>$respuesta[$i]->nombre,
+                    'latitud'=>$respuesta[$i]->latitud,
+                    'longitud'=>$respuesta[$i]->longitud,
+                    'tipo'=>$respuesta[$i]->tipo,
+                    'visitado'=>(count($visitado) > 0 ? 1 : 0)
                 ];
 
                 $puntosInteres[] = $puntoInteres;
@@ -73,79 +76,71 @@ class PuntoController extends Controller
         }
 
         $success = [
-            'error' => 0,
-            'message' => ""
+            'error'=>0,
+            'message'=>""
         ];
 
         $data = [
-            'puntos_interes' => $puntosInteres
+            'puntos_interes'=>$puntosInteres
         ];
 
         return response()->json([
-            'status' => $success,
-            'data' => $data
+            'status'=>$success,
+            'data'=>$data
         ]);
     }
 
-    public function getPunto(Request $request) {
+//    public function getPunto(Request $request) {
+    public function getPunto($id) {
         
-        if (!Utils::autorizacionValida($request->header('Authorization'))) {
+/*        if (!Utils::autorizacionValida($request->header('Authorization'))) {
             abort(404);
         }
-
         $id_punto_interes = $request->id_punto_interes;
+*/
 
+        $id_punto_interes = $id;
+
+        //Comprobamos las variables del request
         if ($id_punto_interes == null) {
-
-            $success = [
-                'error' => 1,
-                'message' => "Los campos introducidos no son correctos"
-            ];
-
-            $data = [
-                'punto_interes' => null
-            ];
-
             return response()->json([
-                'status' => $success,
-                'data' => $data
+                'status'=>['error'=>1, 'message'=>"Los campos introducidos no son correctos"],
+                'punto_interes'=>null
             ]);
-
         }
 
-        $respuesta = puntosInteres::where('id', $id_punto_interes)->get();
-        $puntoInteres = null;
+        //Hacdemos la consulta
+        $respuesta = Punto::where('id', $id_punto_interes)->get();
+        //$puntoInteres = null;
 
-        if (count($respuesta) > 0) {
-            $respuesta_punto_interes = $respuesta[0];
-
-            $puntoInteres = [
-                'id' => $respuesta_punto_interes->id,
-                'nombre' => $respuesta_punto_interes->nombre,
-                'descripcion' => $respuesta_punto_interes->descripcion,
-                'leyenda' => $respuesta_punto_interes->leyenda,
-                'referencia' => $respuesta_punto_interes->referencia,
-                'telefono' => $respuesta_punto_interes->telefono,
-                'web' => $respuesta_punto_interes->web,
-                'latitud' => $respuesta_punto_interes->latitud,
-                'longitud' => $respuesta_punto_interes->longitud,
-                'coste' => $respuesta_punto_interes->coste,
-                'tipo' => $respuesta_punto_interes->tipo
-            ];
+        //Devolvemos la respuesta
+        if(count($respuesta)>0){
+            return response()->json([
+                'status'=>['error'=>0, 'message'=>""],
+                'data'=>[
+                    'id'=>$respuesta[0]->id,
+                    'provincia_id'=>$respuesta[0]->provincia_id,
+                    'nombre'=>$respuesta[0]->nombre,
+                    'descripcion'=>$respuesta[0]->descripcion,
+                    'leyenda'=>$respuesta[0]->leyenda,
+                    'referencia'=>$respuesta[0]->referencia,
+                    'telefono'=>$respuesta[0]->telefono,
+                    'web'=>$respuesta[0]->web,
+                    'longitud'=>$respuesta[0]->longitud,
+                    'latitud'=>$respuesta[0]->latitud,
+                    'coste'=>$respuesta[0]->coste,
+                    'horario_id'=>$respuesta[0]->horario_id,
+                    'tipo'=>$respuesta[0]->tipo,
+                    'puntos'=>$respuesta[0]->puntos,
+                    'siglo'=>$respuesta[0]->siglo,
+                    'etiquetas'=>$respuesta[0]->etiquetas,
+                    'curiosidades'=>$respuesta[0]->curiosidades
+                ]
+            ]);
         }
-
-        $success = [
-            'error' => 0,
-            'message' => ""
-        ];
-
-        $data = [
-            'punto_interes' => $puntoInteres
-        ];
-
         return response()->json([
-            'status' => $success,
-            'data' => $data
+            'status'=>['error'=>2, 'message'=>"No hay datos para este punto de interés"],
+            'data'=>null
         ]);
     }
 
@@ -188,15 +183,20 @@ class PuntoController extends Controller
 
     public function create()
     {
-        return view('paginas.master.masterPuntoNuevo');
+        $mirest='tiposGet';
+        $response = $this->cliente->request('get', $mirest);
+        $tipos = json_decode( $response->getBody()->getContents(), true );
+        //return $tipos;
+
+        $mirest='provinciasGet';
+        $response = $this->cliente->request('get', $mirest);
+        $puntos = json_decode( $response->getBody()->getContents(), true );
+        //return $puntos;
+        return view('paginas.master.masterPuntoNuevo', compact('puntos', 'tipos'));
     }
 
-    public function store(Request $request)
+    public function store(PuntoRequest $request)
     {
-
-
-        dd($request);
-        return "estamos aqui";
         $punto = new Punto;
         $punto->provincia_id    = $request->input("provincia");
         $punto->nombre          = $request->input("nombre");
@@ -211,13 +211,61 @@ class PuntoController extends Controller
         $punto->horario_id      = $request->input("horario");
         $punto->tipo            = $request->input("tipo");
         $punto->puntos          = $request->input("puntos");
+        $punto->siglo           = $request->input("siglo");
+        $punto->etiquetas       = $request->input("etiqueta");
+        $punto->curiosidades    = $request->input("curiosidades");
         $punto->save();
+        return redirect()->action('PuntoController@PuntosxEstado');
+    }
 
+    public function edit($id)
+    {
+        //Obtenemos los tipos de monumentos
+        $mirest='tiposGet';
+        $response = $this->cliente->request('get', $mirest);
+        $tipos = json_decode( $response->getBody()->getContents(), true );
+        //return $tipos;
 
+        //Obtenemos las provincias
+        $mirest='provinciasGet';
+        $response = $this->cliente->request('get', $mirest);
+        $provincias = json_decode( $response->getBody()->getContents(), true );
+        //return $provincias;
 
+        //Obtenemos los datos del punto de interés
+        $midato['id_punto_interes']=$id;
+        $dato = (object)$midato;
+        //$mirest='getPuntoInteres/'.$dato;
+        $mirest='getPuntoInteres/'.$id;
+        //return $mirest;
+        $response = $this->cliente->request('get', $mirest);
+        $punto = json_decode( $response->getBody()->getContents(), true );
+        //return $punto;
 
+        return view('paginas.master.masterPuntoModificar', compact('punto', 'tipos','provincias'));
+    }
 
-        return "estamos aqui";
+    public function update(PuntoRequest $request)
+    {
+        $punto = new Punto;
+        $punto->provincia_id    = $request->input("provincia");
+        $punto->nombre          = $request->input("nombre");
+        $punto->descripcion     = $request->input("descripcion");
+        $punto->leyenda         = $request->input("leyenda");
+        $punto->referencia      = $request->input("referencia");
+        $punto->telefono        = $request->input("telefono");
+        $punto->web             = $request->input("web");
+        $punto->longitud        = $request->input("longitud");
+        $punto->latitud         = $request->input("latitud");
+        $punto->coste           = $request->input("coste");
+        $punto->horario_id      = $request->input("horario");
+        $punto->tipo            = $request->input("tipo");
+        $punto->puntos          = $request->input("puntos");
+        $punto->siglo           = $request->input("siglo");
+        $punto->etiquetas       = $request->input("etiqueta");
+        $punto->curiosidades    = $request->input("curiosidades");
+        $punto->save();
+        return redirect()->action('PuntoController@PuntosxEstado');
     }
 
 }

@@ -15,26 +15,33 @@ Route::post('crearUsuario', 'usuariosController@crearUsuario');
 //**********
 Route::get('puntoNuevoApi', 'PuntoController@puntoNuevoApi');
 Route::get('getPuntosInteres', 'PuntoController@getPuntos');
-Route::get('getPuntoInteres', 'PuntoController@getPunto');
+Route::get('getPuntoInteres/{id}', 'PuntoController@getPunto');
 Route::get('getPuntosxEstado', 'PuntoController@getPuntosxEstado');
 
 
 //***********
 //* Estados *
 //***********
-Route::get('getNaciones', 'NacionController@getNaciones');
+Route::get('getNaciones', 'EstadoController@getNaciones');
 
 
 //**************
 //* Provincias *
 //**************
-Route::get('getLocalidades', 'LocalidadController@getLocalidades');
+Route::get('getLocalidades', 'ProvinciaController@getLocalidades');
+Route::get('provinciasGet', 'ProvinciaController@index');
 
 
 //***********
 //* Pruebas *
 //***********
-Route::get('prueba', 'NacionController@getPrueba');
+Route::get('prueba', 'EstadoController@getPrueba');
+
+
+//*********
+//* Tipos *
+//*********
+Route::get('tiposGet', 'TipoController@index');
 
 
 
