@@ -176,7 +176,7 @@ class PuntoController extends Controller
         //return "estamos en puntoxestado";
         $mirest='getPuntosxEstado';
         $response = $this->cliente->request('get', $mirest);
-        $puntos = json_decode( $response->getBody()->getContents(), true );
+        $puntos = json_decode($response->getBody()->getContents(), true);
         //return $puntos;
         return view('paginas.master.masterPuntos', compact('puntos'));
     }
@@ -185,12 +185,12 @@ class PuntoController extends Controller
     {
         $mirest='tiposGet';
         $response = $this->cliente->request('get', $mirest);
-        $tipos = json_decode( $response->getBody()->getContents(), true );
+        $tipos = json_decode($response->getBody()->getContents(), true);
         //return $tipos;
 
         $mirest='provinciasGet';
         $response = $this->cliente->request('get', $mirest);
-        $puntos = json_decode( $response->getBody()->getContents(), true );
+        $puntos = json_decode($response->getBody()->getContents(), true);
         //return $puntos;
         return view('paginas.master.masterPuntoNuevo', compact('puntos', 'tipos'));
     }
@@ -223,13 +223,13 @@ class PuntoController extends Controller
         //Obtenemos los tipos de monumentos
         $mirest='tiposGet';
         $response = $this->cliente->request('get', $mirest);
-        $tipos = json_decode( $response->getBody()->getContents(), true );
+        $tipos = json_decode($response->getBody()->getContents(), true);
         //return $tipos;
 
         //Obtenemos las provincias
         $mirest='provinciasGet';
         $response = $this->cliente->request('get', $mirest);
-        $provincias = json_decode( $response->getBody()->getContents(), true );
+        $provincias = json_decode($response->getBody()->getContents(), true);
         //return $provincias;
 
         //Obtenemos los datos del punto de interés
@@ -239,31 +239,32 @@ class PuntoController extends Controller
         $mirest='getPuntoInteres/'.$id;
         //return $mirest;
         $response = $this->cliente->request('get', $mirest);
-        $punto = json_decode( $response->getBody()->getContents(), true );
+        $punto = json_decode($response->getBody()->getContents(), true);
         //return $punto;
 
         return view('paginas.master.masterPuntoModificar', compact('punto', 'tipos','provincias'));
     }
 
-    public function update(PuntoRequest $request)
+    public function update(PuntoRequest $request, $id)
     {
-        $punto = new Punto;
-        $punto->provincia_id    = $request->input("provincia");
-        $punto->nombre          = $request->input("nombre");
-        $punto->descripcion     = $request->input("descripcion");
-        $punto->leyenda         = $request->input("leyenda");
-        $punto->referencia      = $request->input("referencia");
-        $punto->telefono        = $request->input("telefono");
-        $punto->web             = $request->input("web");
-        $punto->longitud        = $request->input("longitud");
-        $punto->latitud         = $request->input("latitud");
-        $punto->coste           = $request->input("coste");
-        $punto->horario_id      = $request->input("horario");
-        $punto->tipo            = $request->input("tipo");
-        $punto->puntos          = $request->input("puntos");
-        $punto->siglo           = $request->input("siglo");
-        $punto->etiquetas       = $request->input("etiqueta");
-        $punto->curiosidades    = $request->input("curiosidades");
+        $punto = Punto::where('id', $id)->firstOrFail();
+        $punto->id              = $request->get("id");
+        $punto->provincia_id    = $request->get("provincia");
+        $punto->nombre          = $request->get("nombre");
+        $punto->descripcion     = $request->get("descripcion");
+        $punto->leyenda         = $request->get("leyenda");
+        $punto->referencia      = $request->get("referencia");
+        $punto->telefono        = $request->get("telefono");
+        $punto->web             = $request->get("web");
+        $punto->longitud        = $request->get("longitud");
+        $punto->latitud         = $request->get("latitud");
+        $punto->coste           = $request->get("coste");
+        $punto->horario_id      = $request->get("horario");
+        $punto->tipo            = $request->get("tipo");
+        $punto->puntos          = $request->get("puntos");
+        $punto->siglo           = $request->get("siglo");
+        $punto->etiquetas       = $request->get("etiqueta");
+        $punto->curiosidades    = $request->get("curiosidades");
         $punto->save();
         return redirect()->action('PuntoController@PuntosxEstado');
     }
