@@ -21,9 +21,6 @@ Route::group(['middleware' => ['web']], function () {
 //**********
 
 
-
-
-
 });
 
 
@@ -51,6 +48,10 @@ Route::group(['middleware' => 'auth'], function () {
     //Modificar punto 
     Route::get('/masterPuntoModificar/{id}', 'PuntoController@edit');  //Entrada a formulario editar
     Route::post('masterPuntoModificar2/{id}', 'PuntoController@update');  //Respuesta del formulario crear
+
+    //Borrar punto
+    Route::get('masterPuntoBorrar1/{id}', function ($id) { return view('paginas.master.masterPuntoBorrar1')->with('id', $id); });  //Confirmar borrar punto
+    Route::get('masterPuntoBorrar2/{id}', 'PuntoController@destroy');  //Borrar punto
 
 
 

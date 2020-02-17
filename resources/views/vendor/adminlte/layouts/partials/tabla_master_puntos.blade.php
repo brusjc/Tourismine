@@ -7,11 +7,12 @@
                     <tr>
                         <th style="width: 8%">Estado</th>
                         <th style="width: 8%">Provincia</th>
-                        <th style="width: 70%">Punto</th>
+                        <th style="width: 64%">Punto</th>
                         <th style="width: 10%">
                             <a href="/masterPuntoNuevo"><button type="button" class="btn btn-block btn-info">Nuevo punto</button></a>
                         </th>
-                        <th style="width: 4%">Mod</th>
+                        <th style="width: 5%">Mod</th>
+                        <th style="width: 5%">Borrar</th>
                     </tr>
                     @yield('tablapuntos')
                 </table>

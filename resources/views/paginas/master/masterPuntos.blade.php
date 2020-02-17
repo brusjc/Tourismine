@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.app_master')
+-@extends('adminlte::layouts.app_master')
 
 @section('contentheader_title')
     {{trans('p_home.Title')}}
@@ -42,6 +42,7 @@
 	            <td></td>
 	            <td colspan="2">{{$punto['nombre']}}</td>
 	            <td><a href="/masterPuntoModificar/{{$punto['id']}}"><i class="fa fa-edit"></i></a></td>
+	            <td><a href="/masterPuntoBorrar1/{{$punto['id']}}"><i class="fa fa-trash"></i></a></td>
 	        </tr>
 		@endforeach        
 	@endsection

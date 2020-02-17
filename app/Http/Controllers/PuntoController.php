@@ -269,4 +269,20 @@ class PuntoController extends Controller
         return redirect()->action('PuntoController@PuntosxEstado');
     }
 
+    public function destroy($id)
+    {
+        try {
+            $punto = Punto::findOrFail($id);
+            $punto->delete();
+        } catch (\Exception $e) {
+            unset($punto);
+            $respuesta = response()->json(['status'=>['error'=>1, 'message'=>"Error al borrar el punto"]]); 
+        }
+
+        if($punto){
+            $respuesta = response()->json(['status'=>['error'=>0, 'message'=>""]]);
+        } 
+        return redirect('/master');
+    }
+
 }

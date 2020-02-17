@@ -23,6 +23,4 @@ return [
     'Modificar'		=> 'Modificar',
     ''		=> '',
     ''		=> '',
-    ''		=> '',
-    ''		=> '',
 ];

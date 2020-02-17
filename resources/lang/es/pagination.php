@@ -12,6 +12,10 @@ return [
     |
     */
 
-    'previous' => '&laquo; Anterior',
-    'next'     => 'Siguiente &raquo;',
+    'previous'      => '&laquo; Anterior',
+    'next'          => 'Siguiente &raquo;',
+    'Guardar'       => 'Guardar',
+    'Modificar'     => 'Modificar',
+    'Confirmar'     => 'Confirmar',
+    'Volver'        => 'Volver',
 ];
