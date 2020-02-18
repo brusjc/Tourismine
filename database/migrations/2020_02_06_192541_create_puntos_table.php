@@ -15,7 +15,7 @@ class CreatePuntosTable extends Migration
     {
         Schema::create('puntos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('provincia_id');
+            $table->bigInteger('ciudad_id')->unsigned();
             $table->string('nombre');
             $table->string('descripcion')->nullable();
             $table->string('leyenda')->nullable();
@@ -26,14 +26,19 @@ class CreatePuntosTable extends Migration
             $table->double('latitud')->nullable();
             $table->double('coste')->nullable();
             $table->bigInteger('horario_id');
-            $table->bigInteger('tipo');
+            $table->bigInteger('tipo_id')->unsigned();
             $table->double('puntos')->nullable();
             $table->integer('siglo')->nullable();
             $table->integer('etiquetas')->nullable();
             $table->integer('curiosidades')->nullable();
             $table->timestamp('tiempo')->nullable();
             $table->timestamps();
-        });
+
+            //Incluimos la clave foránea con ciudads
+            $table->foreign('ciudad_id')->references('id')->on('ciudads');
+            //Incluimos la clave foránea con tipos
+            $table->foreign('tipo_id')->references('id')->on('tipos');
+       });
     }
 
     /**

@@ -40,16 +40,16 @@
 					{{csrf_field()}}
 					<div class="box-body">
 						<div class="form-group">
-							<label for="provincia" class="col-sm-2 control-label">{{trans('punto.Provincia')}}</label>
+							<label for="ciudad" class="col-sm-2 control-label">{{trans('punto.Ciudad')}}</label>
 							<div class="col-sm-7">
-								<select class="form-control select2" name="provincia" id="provincia">
-									@foreach($provincias['data'] as $provincia)
-										@if($provincia['id'] == old('provincia'))
-											<option value="{{$provincia['id']}}" selected>{{$provincia['nombre']}}</option>
-										@elseif($provincia['id'] == $punto['data']['provincia_id'])
-											<option value="{{$provincia['id']}}" selected>{{$provincia['nombre']}}</option>
+								<select class="form-control select2" name="ciudad" id="ciudad">
+									@foreach($ciudades['data'] as $ciudad)
+										@if($ciudad['id'] == old('provincia'))
+											<option value="{{$ciudad['id']}}" selected>{{$ciudad['nombre']}}</option>
+										@elseif($ciudad['id'] == $punto['data']['provincia_id'])
+											<option value="{{$ciudad['id']}}" selected>{{$ciudad['nombre']}}</option>
 										@else
-											<option value="{{$provincia['id']}}">{{$provincia['nombre']}}</option>
+											<option value="{{$ciudad['id']}}">{{$ciudad['nombre']}}</option>
 										@endif
 									@endforeach
 								</select>

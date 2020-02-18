@@ -21,7 +21,7 @@ class PuntoController extends Controller
     public function __construct(){
         $this->cliente = new Client([
             'base_uri'=>'http://localhost/api/',  // Base URI is used with relative requests
-            'timeout' =>2.0,
+            'timeout' =>10.0,
         ]);
     }
 
@@ -92,12 +92,12 @@ class PuntoController extends Controller
 
 //    public function getPunto(Request $request) {
     public function getPunto($id) {
-        
-/*        if (!Utils::autorizacionValida($request->header('Authorization'))) {
+        /*
+        if (!Utils::autorizacionValida($request->header('Authorization'))) {
             abort(404);
         }
         $id_punto_interes = $request->id_punto_interes;
-*/
+        */
 
         $id_punto_interes = $id;
 
@@ -145,13 +145,39 @@ class PuntoController extends Controller
     }
 
 
-    //API: Todos los puntos ordenados por provincia
+    //API: Todos los puntos ordenados por Estado
     public function getPuntosxEstado() 
     {
        try {
-            $dato = Punto::orderBy('provincia_id', 'asc')
+            $dato = Punto::orderBy('ciudad_id', 'asc')
+                ->with('Ciudad')
                 ->with('Provincia')
                 ->with('Estado')
+                ->get();
+       } catch (\Exception $e) {
+            return response()->json(
+                ['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]
+            );        
+        }
+
+        if(count($dato)==0){
+            return response()->json(
+                ['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]
+            );
+        } else {
+            return response()->json(
+                ['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]
+            );
+        } 
+    }
+
+    //API: Todos los puntos ordenados por provincia
+    public function getPuntosxProvincia() 
+    {
+       try {
+            $dato = Punto::orderBy('ciudad_id', 'asc')
+                ->with('Ciudad')
+                ->with('Provincia')
                 ->get();
        } catch (\Exception $e) {
             return response()->json(
@@ -177,6 +203,17 @@ class PuntoController extends Controller
         $mirest='getPuntosxEstado';
         $response = $this->cliente->request('get', $mirest);
         $puntos = json_decode($response->getBody()->getContents(), true);
+       //return $puntos;
+        return view('paginas.master.masterPuntos', compact('puntos'));
+    }
+
+    //Master: Tabla con todos los puntos por provincia
+    public function PuntosxProvincia()
+    {
+        //return "estamos en puntoxestado";
+        $mirest='getPuntosxProvincia';
+        $response = $this->cliente->request('get', $mirest);
+        $puntos = json_decode($response->getBody()->getContents(), true);
         //return $puntos;
         return view('paginas.master.masterPuntos', compact('puntos'));
     }
@@ -198,7 +235,7 @@ class PuntoController extends Controller
     public function store(PuntoRequest $request)
     {
         $punto = new Punto;
-        $punto->provincia_id    = $request->input("provincia");
+        $punto->ciudad_id       = $request->input("ciudad");
         $punto->nombre          = $request->input("nombre");
         $punto->descripcion     = $request->input("descripcion");
         $punto->leyenda         = $request->input("leyenda");
@@ -209,7 +246,7 @@ class PuntoController extends Controller
         $punto->latitud         = $request->input("latitud");
         $punto->coste           = $request->input("coste");
         $punto->horario_id      = $request->input("horario");
-        $punto->tipo            = $request->input("tipo");
+        $punto->tipo_id         = $request->input("tipo");
         $punto->puntos          = $request->input("puntos");
         $punto->siglo           = $request->input("siglo");
         $punto->etiquetas       = $request->input("etiqueta");
@@ -227,10 +264,10 @@ class PuntoController extends Controller
         //return $tipos;
 
         //Obtenemos las provincias
-        $mirest='provinciasGet';
+        $mirest='getCiudades';
         $response = $this->cliente->request('get', $mirest);
-        $provincias = json_decode($response->getBody()->getContents(), true);
-        //return $provincias;
+        $ciudades = json_decode($response->getBody()->getContents(), true);
+        //return $ciudades;
 
         //Obtenemos los datos del punto de interés
         $midato['id_punto_interes']=$id;
@@ -242,14 +279,14 @@ class PuntoController extends Controller
         $punto = json_decode($response->getBody()->getContents(), true);
         //return $punto;
 
-        return view('paginas.master.masterPuntoModificar', compact('punto', 'tipos','provincias'));
+        return view('paginas.master.masterPuntoModificar', compact('punto', 'tipos','ciudades'));
     }
 
     public function update(PuntoRequest $request, $id)
     {
         $punto = Punto::where('id', $id)->firstOrFail();
         $punto->id              = $request->get("id");
-        $punto->provincia_id    = $request->get("provincia");
+        $punto->ciudad_id       = $request->get("ciudad");
         $punto->nombre          = $request->get("nombre");
         $punto->descripcion     = $request->get("descripcion");
         $punto->leyenda         = $request->get("leyenda");
@@ -260,7 +297,7 @@ class PuntoController extends Controller
         $punto->latitud         = $request->get("latitud");
         $punto->coste           = $request->get("coste");
         $punto->horario_id      = $request->get("horario");
-        $punto->tipo            = $request->get("tipo");
+        $punto->tipo_id         = $request->get("tipo");
         $punto->puntos          = $request->get("puntos");
         $punto->siglo           = $request->get("siglo");
         $punto->etiquetas       = $request->get("etiqueta");

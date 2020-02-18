@@ -16,7 +16,8 @@ Route::post('crearUsuario', 'usuariosController@crearUsuario');
 Route::get('puntoNuevoApi', 'PuntoController@puntoNuevoApi');
 Route::get('getPuntosInteres', 'PuntoController@getPuntos');
 Route::get('getPuntoInteres/{id}', 'PuntoController@getPunto');
-Route::get('getPuntosxEstado', 'PuntoController@getPuntosxEstado');
+Route::get('getPuntosxEstado', 'PuntoController@getPuntosxEstado')->name('getPuntosxEstado');
+Route::get('getPuntosxProvincia', 'PuntoController@getPuntosxProvincia')->name('getPuntosxProvincia');
 
 
 //***********
@@ -28,8 +29,12 @@ Route::get('getNaciones', 'EstadoController@getNaciones');
 //**************
 //* Provincias *
 //**************
-Route::get('getLocalidades', 'ProvinciaController@getLocalidades');
-Route::get('provinciasGet', 'ProvinciaController@index');
+Route::get('provinciasGet', 'ProvinciaController@index')->name('provinciasGet');
+
+//**************
+//* Provincias *
+//**************
+Route::get('getCiudades', 'CiudadController@index')->name('getCiudades');
 
 
 //***********
@@ -41,7 +46,7 @@ Route::get('prueba', 'EstadoController@getPrueba');
 //*********
 //* Tipos *
 //*********
-Route::get('tiposGet', 'TipoController@index');
+Route::get('tiposGet', 'TipoController@index')->name('tiposGet');
 
 
 

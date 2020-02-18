@@ -38,16 +38,16 @@ Route::group(['middleware' => 'auth'], function () {
     //* Master *
     //**********
     //Route::get('/master', function () { return view('paginas.master.master'); });
-    Route::get('/master', 'PuntoController@PuntosxEstado');
+    Route::get('/master', 'PuntoController@PuntosxProvincia')->name('master');
     Route::get('/master/puntos', 'PuntoController@PuntosxEstado');
 
     //Nuevo punto 
     Route::get('/masterPuntoNuevo', 'PuntoController@create');  //Entrada a formulario crear
-    Route::post('masterPuntoNuevo2', 'PuntoController@store');  //Respuesta del formulario crear
+    Route::post('masterPuntoNuevo2', 'PuntoController@store')->name('masterPuntoNuevo2');  //Respuesta del formulario crear
 
     //Modificar punto 
-    Route::get('/masterPuntoModificar/{id}', 'PuntoController@edit');  //Entrada a formulario editar
-    Route::post('masterPuntoModificar2/{id}', 'PuntoController@update');  //Respuesta del formulario crear
+    Route::get('/masterPuntoModificar/{id}', 'PuntoController@edit')->name('masterPuntoModificar1');  //Entrada a formulario editar
+    Route::post('masterPuntoModificar2/{id}', 'PuntoController@update')->name('masterPuntoModificar2');  //Respuesta del formulario crear
 
     //Borrar punto
     Route::get('masterPuntoBorrar1/{id}', function ($id) { return view('paginas.master.masterPuntoBorrar1')->with('id', $id); });  //Confirmar borrar punto

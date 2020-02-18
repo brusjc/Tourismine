@@ -16,6 +16,11 @@ class Provincia extends Model
 		return $this->belongsTo('App\Estado');
 	}
 
+	//Creamos relación con la tabla ciudad
+	public function ciudad() {
+		return $this->hasMany('App\Ciudad');
+	}
+
 	//Creamos relación con la tabla punto
 	public function punto() {
 		return $this->hasMany('App\Punto');

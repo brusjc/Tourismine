@@ -4,7 +4,8 @@ return [
     /*Traducciones de los menús y barras laterales*/
 
     'Nombre'		=> 'Nombre',
-    'Provincia'		=> 'Provincia',
+    'Provincia'     => 'Provincia',
+    'Ciudad'        => 'Ciudad',
     'Descripcion'	=> 'Descripcion',
     'Leyenda'		=> 'Leyenda',
     'Referencia'	=> 'Referencia',

@@ -24,7 +24,7 @@ class PuntoRequest extends FormRequest
     public function rules()
     {
         return [
-            'provincia'     => 'required|numeric|integer|min:1',
+            'ciudad'        => 'required|numeric|integer|min:1',
             'nombre'        => 'required|min:1|max:60',
             'descripcion'   => 'required|min:1|max:900',
             'leyenda'       => 'required|min:1|max:2000',
