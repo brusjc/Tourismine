@@ -29,4 +29,5 @@ class CiudadController extends Controller
             );
         }
     }
+    
 }

@@ -17,8 +17,6 @@
 @endsection
 
 @section('content')
-	<p>esto es una prueba de cómo funciona la app</p>
-	
 	<div class="row">
 		<div class="col-md-8">
 			<div class="box box-info">
@@ -41,14 +39,14 @@
 					<div class="box-body">
 
 						<div class="form-group">
-							<label for="provincia" class="col-sm-2 control-label">{{trans('punto.Provincia')}}</label>
+							<label for="ciudad_id" class="col-sm-2 control-label">{{trans('punto.Ciudad')}}</label>
 							<div class="col-sm-7">
-								<select class="form-control select2" name="provincia" id="provincia">
-									@foreach($puntos['data'] as $punto)
-										@if($punto['id'] == old('provincia'))
-											<option value="{{$punto['id']}}" selected>{{$punto['nombre']}}</option>
+								<select class="form-control select2" name="ciudad_id" id="ciudad_id">
+									@foreach($ciudades['data'] as $ciudad)
+										@if($ciudad['id'] == old('ciudad'))
+											<option value="{{$ciudad['id']}}" selected>{{$ciudad['nombre']}}</option>
 										@else
-											<option value="{{$punto['id']}}">{{$punto['nombre']}}</option>
+											<option value="{{$ciudad['id']}}">{{$ciudad['nombre']}}</option>
 										@endif
 									@endforeach
 								</select>
@@ -119,9 +117,9 @@
 						</div>	
 
 						<div class="form-group">
-							<label for="horario" class="col-sm-2 control-label">{{trans('punto.Horario')}}</label>
+							<label for="horario_id" class="col-sm-2 control-label">{{trans('punto.Horario')}}</label>
 							<div class="col-sm-7">
-								<select class="form-control select2" name="horario" id="horario" value="{{ old('horario') }}">
+								<select class="form-control select2" name="horario_id" id="horario_id" value="{{ old('horario') }}">
 									<option value="1" selected="selected">Horario 1</option>
 									<option value="2">Horario 2</option>
 									<option value="3">Horario 3</option>
@@ -133,9 +131,9 @@
 						</div>
 
 						<div class="form-group">
-							<label for="tipo" class="col-sm-2 control-label">{{trans('punto.Tipo')}}</label>
+							<label for="tipo_id" class="col-sm-2 control-label">{{trans('punto.Tipo')}}</label>
 							<div class="col-sm-7">
-								<select class="form-control select2" name="tipo" id="tipo">
+								<select class="form-control select2" name="tipo_id" id="tipo_id">
 									@foreach($tipos['data'] as $tipo)
 										@if($tipo['id'] == old('tipo'))
 											<option value="{{$tipo['id']}}" selected>{{$tipo['nombre']}}</option>
@@ -162,9 +160,9 @@
 						</div>
 
 						<div class="form-group">
-							<label for="etiqueta" class="col-sm-2 control-label">{{trans('punto.Etiquetas')}}</label>
+							<label for="etiquetas" class="col-sm-2 control-label">{{trans('punto.Etiquetas')}}</label>
 							<div class="col-sm-7">
-								<input type="text" class="form-control" name="etiqueta" id="etiqueta" placeholder="Enter ..." value="{{ old('etiqueta') }}">
+								<input type="text" class="form-control" name="etiquetas" id="etiquetas" placeholder="Enter ..." value="{{ old('etiqueta') }}">
 							</div>
 						</div>
 

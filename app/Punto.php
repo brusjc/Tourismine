@@ -26,4 +26,9 @@ class Punto extends Model
         return $this->hasManyThrough('App\Estado', 'App\Provincia', 'id', 'id', 'provincia_id', 'estado_id');
 	}
 
+	//Creamos relación con la tabla tipo
+	public function tipo() {
+        return $this->belongsTo('App\Tipo');
+	}
+
 }

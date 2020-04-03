@@ -18,6 +18,8 @@ Route::get('getPuntosInteres', 'PuntoController@getPuntos');
 Route::get('getPuntoInteres/{id}', 'PuntoController@getPunto');
 Route::get('getPuntosxEstado', 'PuntoController@getPuntosxEstado')->name('getPuntosxEstado');
 Route::get('getPuntosxProvincia', 'PuntoController@getPuntosxProvincia')->name('getPuntosxProvincia');
+Route::get('getPuntoStore/{request}', 'PuntoController@store')->name('getPuntoStore');  //API Crear punto
+Route::post('postPuntoUpdate/[request}/{id}', 'PuntoController@update')->name('postPuntoUpdate');  //API Modificar punto
 
 
 //***********
