@@ -1,55 +1,23 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
 
-//********
-//* User *
-//********
-Route::get('login', 'usuariosController@login');
-Route::post('crearUsuario', 'usuariosController@crearUsuario');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-
-//**********
-//* Puntos *
-//**********
-Route::get('puntoNuevoApi', 'PuntoController@puntoNuevoApi');
-Route::get('getPuntosInteres', 'PuntoController@getPuntos');
-Route::get('getPuntoInteres/{id}', 'PuntoController@getPunto');
-Route::get('getPuntosxEstado', 'PuntoController@getPuntosxEstado')->name('getPuntosxEstado');
-Route::get('getPuntosxProvincia', 'PuntoController@getPuntosxProvincia')->name('getPuntosxProvincia');
-Route::get('getPuntoStore/{request}', 'PuntoController@store')->name('getPuntoStore');  //API Crear punto
-Route::post('postPuntoUpdate/[request}/{id}', 'PuntoController@update')->name('postPuntoUpdate');  //API Modificar punto
-
-
-//***********
-//* Estados *
-//***********
-Route::get('getNaciones', 'EstadoController@getNaciones');
-
-
-//**************
-//* Provincias *
-//**************
-Route::get('provinciasGet', 'ProvinciaController@index')->name('provinciasGet');
-
-//**************
-//* Provincias *
-//**************
-Route::get('getCiudades', 'CiudadController@index')->name('getCiudades');
-
-
-//***********
-//* Pruebas *
-//***********
-Route::get('prueba', 'EstadoController@getPrueba');
-
-
-//*********
-//* Tipos *
-//*********
-Route::get('tiposGet', 'TipoController@index')->name('tiposGet');
-
-
-
-
+Route::post('/register', 'Api\UserController@register');
+Route::get('/logout', 'Api\UserController@logout')->middleware('auth:api');
+Route::post('/login', 'Api\UserController@login');
