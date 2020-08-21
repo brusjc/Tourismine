@@ -24,6 +24,7 @@ class UserController extends Controller
         }
 
         request()->merge(['password' => bcrypt(request('password'))]);
+        request()->merge(['roll_id' => 1]);
         $user = User::create(request()->input());
         $success['token'] = $user
             ->createToken('tasks api')
