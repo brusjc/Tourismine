@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('contentheader_title')
-	{{ html_entity_decode(trans('pagMaster.master_title') )}}
+	{{ html_entity_decode(trans('pagRaiz.master_title') )}}
 @endsection
 
 @section('contentheader_h1')
