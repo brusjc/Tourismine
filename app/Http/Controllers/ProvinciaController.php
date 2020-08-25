@@ -12,7 +12,8 @@ class ProvinciaController extends Controller
 //*******
 //* API *
 //*******
-    public function getProvincias(Request $request) {
+    public function getProvincias(Request $request)
+    {
 
         if (!Utils::autorizacionValida($request->header('Authorization'))) {
             abort(404);
@@ -97,7 +98,7 @@ class ProvinciaController extends Controller
 
     public function showXEstado($estado)
     {
-//var_dump(($estado);
+        //var_dump(($estado);
         //1.- Prepara las variables
         $valor=(int)$estado;
         if ($valor==0) {

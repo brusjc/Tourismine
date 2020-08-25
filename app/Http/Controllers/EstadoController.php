@@ -29,7 +29,8 @@ class EstadoController extends Controller
         }
     }
 
-    public function getEstados(Request $request) {
+    public function getEstados(Request $request) 
+    {
         
         if (!Utils::autorizacionValida($request->header('Authorization'))) {
             abort(404);
@@ -57,7 +58,8 @@ class EstadoController extends Controller
         ]);
     }
 
-    public function getPrueba(Request $request) {
+    public function getPrueba(Request $request) 
+    {
         return response()->File(storage_path('icono'));
     }
 
@@ -74,8 +76,9 @@ class EstadoController extends Controller
         $estados=$this->show();
         $estados = @json_decode(json_encode($estados), true);
         $estados=$estados['original']['data'];
-//var_dump($estados);
+        //var_dump($estados);
         //return $resultado;
+        
         //url de vuelta
         session(['BC1' => '/examenes-jqcv']);
         session(['BC1texto' => 'Exàmens JQCV']);

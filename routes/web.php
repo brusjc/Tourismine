@@ -1,5 +1,4 @@
 <?php
-Route::get('/formanidados', 'estadoController@formanidados')->name('formanidados');
 
 Auth::routes();
 
@@ -44,5 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //Prueba formularios anidados
+Route::get('/formanidados', 'estadoController@formanidados')->name('formanidados');
 Route::get('/provinciasXEstado/{estado}', 'provinciaController@showXEstado')->name('provinciasXEstado');
 Route::get('/ciudades', 'ciudadController@ciudades')->name('ciudades');

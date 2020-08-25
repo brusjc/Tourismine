@@ -16,7 +16,6 @@ use App\Helpers\Utils;
 
 class PuntoController extends Controller
 {
-    protected $fillable = ['ciudad_id', 'nombre', 'descripcion', 'leyenda', 'referencia', 'telefono', 'web', 'longitud', 'latitud', 'coste', 'horario_id', 'tipo_id', 'puntos', 'siglo', 'etiquetas', 'curiosidades'];
 
     public function usuarioActual()
     {
@@ -250,19 +249,13 @@ class PuntoController extends Controller
                 ->with('Provincia')
                 ->get();
        } catch (\Exception $e) {
-            return response()->json(
-                ['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]
-            );        
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]);        
         }
 
         if(count($dato)==0){
-            return response()->json(
-                ['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]
-            );
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]);
         } else {
-            return response()->json(
-                ['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]
-            );
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         } 
     }
 
@@ -344,10 +337,7 @@ class PuntoController extends Controller
                 'puntos_interes'=>[]
             ];
 
-            return response()->json([
-                'status'=>$success,
-                'data'=>$data
-            ]);
+            return response()->json(['status'=>$success,'data'=>$data]);
 
         }
 
@@ -380,10 +370,7 @@ class PuntoController extends Controller
             'puntos_interes'=>$puntosInteres
         ];
 
-        return response()->json([
-            'status'=>$success,
-            'data'=>$data
-        ]);
+        return response()->json(['status'=>$success,'data'=>$data]);
     }
 
 
@@ -444,7 +431,7 @@ class PuntoController extends Controller
             $punto['etiquetas']!=strip_tags($punto['etiquetas']) || 
             $punto['curiosidades']!=strip_tags($punto['curiosidades'])
         ){
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
+            return response()->json(['status'=>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
         }
         //return $punto;
 
@@ -463,7 +450,7 @@ class PuntoController extends Controller
         //Paso 1: Sanitizamos las variables
         $id=(int)$id;
         if($id==0) {
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales'], 'data'=>null]);
+            return response()->json(['status'=>['error'=>1, 'message'=>'Error en datos iniciales'], 'data'=>null]);
         }
 
         //Paso 2: Obtenemos la tabla de tipod de monumento
@@ -515,7 +502,7 @@ class PuntoController extends Controller
             $punto['etiquetas']!=strip_tags($punto['etiquetas']) || 
             $punto['curiosidades']!=strip_tags($punto['curiosidades'])
         ){
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
+            return response()->json(['status'=>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
         }
         //return $punto;
 
@@ -586,19 +573,13 @@ class PuntoController extends Controller
                 ->with('Estado')
                 ->get();
        } catch (\Exception $e) {
-            return response()->json(
-                ['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]
-            );        
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]);
         }
 
         if(count($dato)==0){
-            return response()->json(
-                ['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]
-            );
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]);
         } else {
-            return response()->json(
-                ['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]
-            );
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         } 
     }
 

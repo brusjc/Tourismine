@@ -3,16 +3,22 @@
     <title>Formulario con Combobox</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+
+<script src="{{ asset('js/app.js') }}"></script> 
+
 
 </head>
 <body>
  
+
 <div class="container col-md-4 col-md-offset-4">
     <div class="btn-group" role="group" aria-label="...">
         <div class="btn-group" role="group">
-            <select name="estados" id="estados" class="form-control">
+            <label for="estado6_id" class="control-label">Seleccione Estado</label>
+            <select name="estado_id" id="estado_id" class="form-control">
                 <option value="">Seleccione</option>
                 @foreach($estados as $estado)
                     <option value="{{$estado['id']}}">{{$estado['nombre']}}</option>
@@ -26,8 +32,8 @@
 
 <div class="container col-md-4 col-md-offset-4">
     <div class="btn-group" role="group" aria-label="...">
-        <label for="" class="control-label">Seleccione Provincia</label>
-        <select name="provincias" id="provincias" class="form-control">
+        <label for="provincia_id" class="control-label">Seleccione Provincia</label>
+        <select name="provincia_id" id="provincia_id" class="form-control">
             <option value="">Seleccione Estado</option>
         </select>
     </div>
@@ -36,29 +42,48 @@
 <br/><br/><br/>
 
 <div class="col-lg-4 col-md-4">
-          <a class="mb-2 btn btn-block btn-info" href="provinciasXEstado/28">España</a>
-        </div>
-
+  <a class="mb-2 btn btn-block btn-info" href="provinciasXEstado/28">España</a>
+</div>
 
 <script>
-  $(document).ready(function(){
-    $("#estados").change(function(){
+  $(document).ready(function()
+  {
+    $("#estado_id").change(function()
+    {
+      //alert("estamos en la funcion");
       var estado = $(this).val();
-      $.get('provinciasXEstado/'+estado, function(datos){
-//esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-//alert(datos.data[1].id);
-        console.log(datos);
-        var midata = misdatos;
-alert(midata);
-        var provincia_select = '<option value="">Seleccione Provincia</option>';
-            $.each(midata, function(i,item){
-//            for (var i=0; i<datos.length;i++)
-              provincia_select+='<option value="'+midata[i].id+'">'+midata[i].nombre+'</option>';
+      //alert(estado);
+      $.get('provinciasXEstado/'+estado, function(json)
+      {
+        console.log(json);
+        var provincia_select = '<option value=""> Seleccione Provincia </option>'
+
+        for (var clave in json)
+        {
+          if (json.hasOwnProperty(clave)) 
+          {
+            //alert(clave);
+            //alert("La clave es " + clave + " y el valor es " + json[clave]);
+
+            if(clave=="data")
+            {
+              //alert("Estamos en la clave: " + clave);
+
+              var data = json[clave];
+              //alert(data.length);
+
+              for (var i=0; i<data.length; i++)
+              {
+                //alert("El valor del data es: " + data[i].nombre);
+                
+                //alert("La clave es " + data + " y el valor es " + data[i]);
+                  //alert(data[i].nombre);
+                  provincia_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
+              }
             }
-
-
-        $("#provincias").html(provincia_select);
-
+          }
+        }
+        $("#provincia_id").html(provincia_select);
       });
     });
   });
