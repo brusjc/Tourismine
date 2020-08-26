@@ -11,26 +11,32 @@ class CiudadController extends Controller
 
     public function index()
     {
+        //1.- Comprobamos las variables
+
+        //Paso2: ejecutamos la consulta
         try 
         {
             $dato = Ciudad::orderBy('nombre', 'asc')
                 ->with('Provincia')
                 ->get();
         } catch (\Exception $e) {
-            return response()->json(['success'=>['error'=>1, 'message'=>"Error al obtener las ciudades"], 'data'=>$e]);
+            return response()->json(['success'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
         }
 
-        if (count($dato)>0)
+        //Paso 3: Devolvemos la respuesta
+        if (count($dato)==0)
         {
-            return response()->json(['success'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
+            return response()->json(['success'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
         } else {
-            return response()->json(['success'=>['error'=>2, 'message'=>"No hay ninguna ciudad"], 'data'=>null]);
+            return response()->json(['success'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         }
     }
 
-    public function ciudadesConPuntos()
+    public function showConPuntos()
     {
-        //1.- Ejecutamos la consulta
+        //1.- Comprobamos las variables
+
+        //Paso2: ejecutamos la consulta
         try
         {
             $dato = DB::table('ciudads')
@@ -44,15 +50,15 @@ class CiudadController extends Controller
             ->orderBy('ciudads.nombre')
             ->get();
         } catch (\Exception $e) {
-            return response()->json(['success'=>['error'=>1, 'message'=>"Error al obtener las ciudades"], 'data'=>$e]);
+            return response()->json(['success'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
         }
 
-        //2.- Devolvemos la respuesta
-        if (count($dato)>0)
+        //Paso 3: Devolvemos la respuesta
+        if (count($dato)==0)
         {
-            return response()->json(['success'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
+            return response()->json(['success'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
         } else {
-            return response()->json(['success'=>['error'=>2, 'message'=>"No hay ninguna ciudad"], 'data'=>null]);
+            return response()->json(['success'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         }
     }
 
@@ -63,11 +69,9 @@ class CiudadController extends Controller
     public function ciudades()
     {
         //1.- Ejecutamos la consulta
-        $ciudades=$this->ciudadesConPuntos();
+        $ciudades=$this->showConPuntos();
         $ciudades = @json_decode(json_encode($ciudades), true);
         $ciudades=$ciudades['original']['data'];
-
-//var_dump($ciudades);
 
         //2.-Enviamos a la vista
         return view('paginas.ciudades', compact('ciudades'));

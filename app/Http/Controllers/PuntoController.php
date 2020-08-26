@@ -25,7 +25,8 @@ class PuntoController extends Controller
 
     private $cliente;
     
-    public function __construct(){
+    public function __construct()
+    {
         $this->cliente = new Client([
             'base_uri'=>'http://localhost/api/',  // Base URI is used with relative requests
             'timeout' =>10.0,
@@ -48,9 +49,11 @@ class PuntoController extends Controller
         $punto['horario_id'] = (int)$punto['horario_id'];
         $punto['tipo_id'] = (int)$punto['tipo_id'];
         $punto['puntos'] = (int)$punto['puntos'];
-        if ($punto['ciudad_id']==0 || $punto['telefono']==0 || $punto['longitud']==0 || $punto['latitud']==0 || $punto['coste']==0 || $punto['horario_id']==0 || $punto['tipo_id']==0 || $punto['puntos']==0){
+        if ($punto['ciudad_id']==0 || $punto['telefono']==0 || $punto['longitud']==0 || $punto['latitud']==0 || $punto['coste']==0 || $punto['horario_id']==0 || $punto['tipo_id']==0 || $punto['puntos']==0)
+        {
             return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
         }
+        
         if ($punto['nombre']!=strip_tags($punto['nombre']) || 
             $punto['descripcion']!=strip_tags($punto['descripcion']) ||
             $punto['leyenda']!=strip_tags($punto['leyenda']) ||
@@ -61,7 +64,6 @@ class PuntoController extends Controller
         ){
             return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
         }
-        //return $punto;
 
         //Paso 2: Obtenemos el último registro creado
         $registroinicial = Punto::latest('id')->first();
@@ -88,12 +90,13 @@ class PuntoController extends Controller
             $mipunto->save();
             $registrofinal = Punto::latest('id')->first();
         } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>"Error al crear el punto"], 'data'=>$e]);
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
         }
 
         //Paso 4: Devolvemos la respuesta
-        if($registroinicial['id'] == $registrofinal['id']){
-            return response()->json(['status'=>['error'=>2, 'message'=>"No hay ningún punto para crear"], 'data'=>null]);
+        if($registroinicial['id'] == $registrofinal['id'])
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
         } else {
             return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$registrofinal]);
         } 
@@ -101,9 +104,6 @@ class PuntoController extends Controller
 
     public function update($punto, $id)
     {
-
-        //TODO falta por sanitizar el email
-
         //Paso 1: Comprobamos las variables
         $id=(int)$id;
         $punto['id'] = (int)$punto['id'];
@@ -115,9 +115,11 @@ class PuntoController extends Controller
         $punto['horario_id'] = (int)$punto['horario_id'];
         $punto['tipo_id'] = (int)$punto['tipo_id'];
         $punto['puntos'] = (int)$punto['puntos'];
-        if ($id==0 || $punto['id']==0 || $punto['ciudad_id']==0 || $punto['telefono']==0 || $punto['longitud']==0 || $punto['latitud']==0 || $punto['coste']==0 || $punto['horario_id']==0 || $punto['tipo_id']==0 || $punto['puntos']==0){
+        if ($id==0 || $punto['id']==0 || $punto['ciudad_id']==0 || $punto['telefono']==0 || $punto['longitud']==0 || $punto['latitud']==0 || $punto['coste']==0 || $punto['horario_id']==0 || $punto['tipo_id']==0 || $punto['puntos']==0)
+        {
             return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
         }
+        
         if ($id!=$punto['id']  ||
             $punto['nombre']!=strip_tags($punto['nombre']) || 
             $punto['descripcion']!=strip_tags($punto['descripcion']) ||
@@ -125,8 +127,8 @@ class PuntoController extends Controller
             $punto['referencia']!=strip_tags($punto['referencia']) || 
             $punto['siglo']!=strip_tags($punto['siglo']) || 
             $punto['etiquetas']!=strip_tags($punto['etiquetas']) || 
-            $punto['curiosidades']!=strip_tags($punto['curiosidades'])
-        ){
+            $punto['curiosidades']!=strip_tags($punto['curiosidades']))
+        {
             return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
         }
 
@@ -151,13 +153,13 @@ class PuntoController extends Controller
             $modpunto->curiosidades = $punto['curiosidades'];
             $modpunto->save();
         } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>'Error al crear el registro'], 'data'=>null]);
-        }        
-        //return $modpunto;
+            return response()->json(['status'=>['error'=>1, 'message'=>'Error en consulta'], 'data'=>null]);
+        }
 
         //Paso 3: Retornamos el resultado
-        if(!$modpunto){
-            return response()->json(['status'=>['error'=>2, 'message'=>'No hay registros en tabla'], 'data'=>null]);
+        if(!$modpunto)
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>'No hay datos'], 'data'=>null]);
         } else {
             return response()->json(['status'=>['error'=>0, 'message'=>''], 'data'=>1]);
         }
@@ -166,30 +168,28 @@ class PuntoController extends Controller
     //API: Todos los puntos ordenados por provincia
     public function showXProvincia() 
     {
-        try {
+        try
+        {
             $dato = Punto::orderBy('ciudad_id', 'asc')
                 ->with('Ciudad')
                 ->with('Provincia')
                 ->get();
-       } catch (\Exception $e) {
-            return response()->json(
-                ['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]
-            );        
+        } catch (\Exception $e) {
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
         }
 
-        if(count($dato)==0){
-            return response()->json(
-                ['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]
-            );
+        if(count($dato)==0)
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
         } else {
-            return response()->json(
-                ['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]
-            );
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         } 
     }
 
     public function showXId($id) 
     {
+        //Utilizado en la API getPunto
+
         //Paso 1: sanetizamos las variables
         $id = (int)$id;
         if ($id==0)
@@ -200,20 +200,57 @@ class PuntoController extends Controller
         //Paso 2: Hacdemos la consulta
         try 
         {
-            $respuesta = Punto::where('id', $id)
+            $dato = Punto::where('id', $id)
                 ->with('Ciudad')
                 ->with('Tipo')
             ->get();
         } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>'Error al obtener el punto de interés'], 'data'=>null]);
+            return response()->json(['status'=>['error'=>1, 'message'=>'Error en consulta'], 'data'=>null]);
         }        
 
         //Paso 3: Devolvemos la respuesta
-        if(count($respuesta)==0)
+        if(count($dato)==0)
         {
-            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos para esta consulta"],'data'=>null]);
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"],'data'=>null]);
         } else {
-            return response()->json(['status'=>['error'=>0, 'message'=>''], 'data'=>$respuesta[0]]);
+            return response()->json(['status'=>['error'=>0, 'message'=>''], 'data'=>$dato[0]]);
+        }
+    }
+
+    public function showXMaps(Request $request) 
+    {
+        //Utilizado en la API getPuntos
+
+        //1.- Comprobamos las variables
+        $id_usuario = (int)$request->user_id;
+        $latitud_superior = (float)$request->latitud_superior;
+        $longitud_superior = (float)$request->longitud_superior;
+        $latitud_inferior = (float)$request->latitud_inferior;
+        $longitud_inferior = (float)$request->longitud_inferior;
+
+        if ($user_id == null || $latitud_superior == null || $longitud_superior == null || $latitud_inferior == null || $longitud_inferior == null)
+        {
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en datos iniciales"], 'data'=>null]);
+        }
+
+        //Paso2: ejecutamos la consulta
+        try
+        {
+            $dato = puntosInteres::where('latitud', '<', $latitud_superior)
+                ->where('latitud', '>', $latitud_inferior)
+                ->where('longitud', '<', $longitud_superior)
+                ->where('longitud', '>', $longitud_inferior)
+                ->get();
+        } catch (\Exception $e) {
+            return response()->json(['status'=>['error'=>2, 'message'=>"Error en la consulta"], 'data'=>null]);
+        }
+
+        //Paso 3: Devolvemos la respuesta
+        if(count($dato)==0)
+        {
+            return response()->json(['status'=>['error'=>3, 'message'=>'No hay datos'], 'data'=>null]);
+        } else {
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         }
     }
 
@@ -230,7 +267,7 @@ class PuntoController extends Controller
             $punto = Punto::findOrFail($id);
             $punto->delete();
         } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>"Error al borrar el punto"]]); 
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"]]); 
         }
 
         //Paso 3: retornamos el resultado
@@ -249,128 +286,14 @@ class PuntoController extends Controller
                 ->with('Provincia')
                 ->get();
        } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]);        
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);        
         }
 
         if(count($dato)==0){
-            return response()->json(['status'=>['error'=>2, 'message'=>"No hay ningún punto por localidad"], 'data'=>null]);
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
         } else {
             return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         } 
-    }
-
-    //public function getPunto(Request $request) {
-    public function getPunto($id) 
-    {
-        /*
-        if (!Utils::autorizacionValida($request->header('Authorization'))) {
-            abort(404);
-        }
-        $id_punto_interes = $request->id_punto_interes;
-        */
-
-        $id_punto_interes = $id;
-
-        //Comprobamos las variables del request
-        if ($id_punto_interes == null) {
-            return response()->json([
-                'status'=>['error'=>1, 'message'=>"Los campos introducidos no son correctos"],
-                'punto_interes'=>null
-            ]);
-        }
-
-        //Hacdemos la consulta
-        $respuesta = Punto::where('id', $id_punto_interes)->get();
-        //$puntoInteres = null;
-
-        //Devolvemos la respuesta
-        if(count($respuesta)>0){
-            return response()->json([
-                'status'=>['error'=>0, 'message'=>""],
-                'data'=>[
-                    'id'=>$respuesta[0]->id,
-                    'ciudad_id'=>$respuesta[0]->ciudad_id,
-                    'nombre'=>$respuesta[0]->nombre,
-                    'descripcion'=>$respuesta[0]->descripcion,
-                    'leyenda'=>$respuesta[0]->leyenda,
-                    'referencia'=>$respuesta[0]->referencia,
-                    'telefono'=>$respuesta[0]->telefono,
-                    'web'=>$respuesta[0]->web,
-                    'longitud'=>$respuesta[0]->longitud,
-                    'latitud'=>$respuesta[0]->latitud,
-                    'coste'=>$respuesta[0]->coste,
-                    'horario_id'=>$respuesta[0]->horario_id,
-                    'tipo'=>$respuesta[0]->tipo,
-                    'puntos'=>$respuesta[0]->puntos,
-                    'siglo'=>$respuesta[0]->siglo,
-                    'etiquetas'=>$respuesta[0]->etiquetas,
-                    'curiosidades'=>$respuesta[0]->curiosidades
-                ]
-            ]);
-        }
-        return response()->json([
-            'status'=>['error'=>2, 'message'=>"No hay datos para este punto de interés"],
-            'data'=>null
-        ]);
-    }
-
-    public function getPuntos(Request $request) 
-    {    
-        if (!Utils::autorizacionValida($request->header('Authorization'))) {
-            abort(404);
-        }
-
-        $id_usuario = $request->user_id;
-        $latitud_superior = $request->latitud_superior;
-        $longitud_superior = $request->longitud_superior;
-        $latitud_inferior = $request->latitud_inferior;
-        $longitud_inferior = $request->longitud_inferior;
-
-        if ($user_id == null || $latitud_superior == null || $longitud_superior == null || $latitud_inferior == null || $longitud_inferior == null) {
-
-            $success = [
-                'error'=>1,
-                'message'=>"Los campos introducidos no son correctos"
-            ];
-
-            $data = [
-                'puntos_interes'=>[]
-            ];
-
-            return response()->json(['status'=>$success,'data'=>$data]);
-
-        }
-
-        $respuesta = puntosInteres::where('latitud', '<', $latitud_superior)->where('latitud', '>', $latitud_inferior)->where('longitud', '<', $longitud_superior)->where('longitud', '>', $longitud_inferior)->get();
-        $puntosInteres = [];
-
-        if (count($respuesta) > 0) {
-            for ($i = 0; $i < count($respuesta); $i++) {
-                $visitado = usuariosPuntosInteres::where('user_id', $user_id)->where('id_punto_interes', $respuesta[$i]->id)->get();
-
-                $puntoInteres = [
-                    'id'=>$respuesta[$i]->id,
-                    'nombre'=>$respuesta[$i]->nombre,
-                    'latitud'=>$respuesta[$i]->latitud,
-                    'longitud'=>$respuesta[$i]->longitud,
-                    'tipo'=>$respuesta[$i]->tipo,
-                    'visitado'=>(count($visitado) > 0 ? 1 : 0)
-                ];
-
-                $puntosInteres[] = $puntoInteres;
-            }
-        }
-
-        $success = [
-            'error'=>0,
-            'message'=>""
-        ];
-
-        $data = [
-            'puntos_interes'=>$puntosInteres
-        ];
-
-        return response()->json(['status'=>$success,'data'=>$data]);
     }
 
 
@@ -573,7 +496,7 @@ class PuntoController extends Controller
                 ->with('Estado')
                 ->get();
        } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>$e]);
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error al obtener los puntos"], 'data'=>null]);
         }
 
         if(count($dato)==0){
@@ -686,7 +609,7 @@ class PuntoController extends Controller
             $registrofinal = Punto::latest('id')->first();
         } catch (\Exception $e) {
             $mipunto = response()->json(
-                ['status'=>['error'=>1, 'message'=>"Error al crear el punto"], 'data'=>$e]
+                ['status'=>['error'=>1, 'message'=>"Error al crear el punto"], 'data'=>null]
             );        
         }
 

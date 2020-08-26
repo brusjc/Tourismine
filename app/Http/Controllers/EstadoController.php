@@ -14,53 +14,24 @@ class EstadoController extends Controller
 
     public function show()
     {
-        //Paso 1: ejecutamos la consulta
-        try {
-            $datos = Estado::orderBy('nombre')->get();
+        //1.- Comprobamos las variables
+
+        //Paso2: ejecutamos la consulta
+        try
+        {
+            $dato = Estado::orderBy('nombre')->get();
         } catch (\Exception $e) {
-            return response()->json(["status"=>['error'=>1, "message"=>"prmaster01: Error al obtener los estados"], 'data'=>null]);
-        }        
+            return response()->json(['status'=>['error'=>2, 'message'=>"Error en consulta"], 'data'=>null]);
+        }
 
-        //Paso 2: enviamos el json
-        if(count($datos)==0){
-            return response()->json(["status"=>['error'=>2, "message"=>"prmaster02: No hay aún ningún estado"], 'data'=>null]);
+        //Paso 3: Devolvemos la respuesta
+        if(count($dato)==0)
+        {
+            return response()->json(['status'=>['error'=>3, 'message'=>'No hay datos'], 'data'=>null]);
         } else {
-            return response()->json(["status"=>['error'=>0, "message"=>""], 'data'=>$datos]);
-        }
-    }
-
-    public function getEstados(Request $request) 
-    {
-        
-        if (!Utils::autorizacionValida($request->header('Authorization'))) {
-            abort(404);
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
         }
 
-        $respuesta = Estado::get();
-        $estados = [];
-
-        if (count($respuesta) > 0) {
-            $estados = $respuesta;
-        }
-
-        $success = [
-            'error' => 0,
-            'message' => ""
-        ];
-
-        $data = [
-            'estados' => $estados
-        ];
-
-        return response()->json([
-            'status' => $success,
-            'data' => $data
-        ]);
-    }
-
-    public function getPrueba(Request $request) 
-    {
-        return response()->File(storage_path('icono'));
     }
 
 

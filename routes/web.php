@@ -45,4 +45,16 @@ Route::group(['middleware' => 'auth'], function () {
 //Prueba formularios anidados
 Route::get('/formanidados', 'estadoController@formanidados')->name('formanidados');
 Route::get('/provinciasXEstado/{estado}', 'provinciaController@showXEstado')->name('provinciasXEstado');
-Route::get('/ciudades', 'ciudadController@ciudades')->name('ciudades');
+Route::get('/ciudades', 'CiudadController@ciudades')->name('ciudades');
+
+
+
+
+//*******
+//* APP *
+//*******
+
+Route::get('/getPaises', 'EstadoController@show')->name('getPaises');
+Route::get('/getPunto/{id}', 'PuntoController@showXId')->name('getPunto');
+Route::get('/getPuntos/{request}', 'PuntoController@showXMap')->name('getPuntos');
+Route::get('/getLocalidades', 'CiudadController@showConPuntos')->name('getLocalidades');
