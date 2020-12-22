@@ -21,9 +21,9 @@
 <section>
     <div class="call-to-action-container section-container section-container-image-bg">
         <div class="container">
-            <div class="row h-100">
-                <div class="col-sm-12 call-to-action section-description wow fadeInLeftBig img-horizontal">
-                    <img class="img-responsive img-rounded" src="/img/Valencia/mercado-central-parada.jpg" />
+            <div class="row">
+                <div class="imgbandera col-md-12 call-to-action section-description wow fadeInLeftBig img-horizontal">
+                    <img class="img-responsive img-fluid img-rounded w-100" src="/img/Valencia/mercado-central-parada.jpg" />
                 </div>
             </div>
         </div>
@@ -31,29 +31,38 @@
 </section>
 
 <section>
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <p>{{ trans('Valencia.ValenciaMercadoC_texto1') }}</p>
-            <p>{!! trans('Valencia.ValenciaMercadoC_texto2') !!}</p>
+    <div class="container text-left">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto1') }}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto2') }}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto3') }}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto4') }}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto5') }}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto6') }}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto7') }}</p>
+            </div>
         </div>
     </div>
 </section>
 
 <section>
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <h2>{{ trans('Valencia.ValenciaMercadoC_titulo1') }}</h2>
-            <div class="col-md-7 pt-5 order-2">
+    <div class="container text-left">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <h2>{{ trans('Valencia.ValenciaMercadoC_titulo101') }}</h2>
+            </div>
+            <div class="col-md-7">
                 <p>{{ trans('Valencia.ValenciaMercadoC_texto101') }}</p>
                 <p>{{ trans('Valencia.ValenciaMercadoC_texto102') }}</p>
-                <p>{!! trans('Valencia.ValenciaMercadoC_texto103') !!}</p>
+                <p>{{ trans('Valencia.ValenciaMercadoC_texto103') }}</p>
                 <p>{{ trans('Valencia.ValenciaMercadoC_texto104') }}</p>
                 <p>{{ trans('Valencia.ValenciaMercadoC_texto105') }}</p>
                 <p>{{ trans('Valencia.ValenciaMercadoC_texto106') }}</p>
             </div>
             <div class="col-md-5">
                 <div class="img-redondo pt-5 mx-3 mv-3">
-                    <img class="img-responsive img-rounded" src="/img/valencia/fachada_lonja_de_la_seda_valencia.jpg" />
+                    <img class="img-responsive img-rounded" src="/img/valencia/mercado-central-estructura.jpg" />
                 </div>
             </div>
         </div>
@@ -61,26 +70,23 @@
 </section>
 
 <section>
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <h2>{{ trans('Valencia.ValenciaMercadoC_titulo2') }}</h2>
+    <div class="container text-left">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-5">
+                <div class="img-redondo pt-5 mx-3 mv-3">
+                    <img class="img-responsive img-rounded" src="/img/valencia/mercado-central-cupula.jpg" />
+                </div>
+            </div>
+            <div class="col-md-7">
             <p>{{ trans('Valencia.ValenciaMercadoC_texto201') }}</p>
-            <p>{!! trans('Valencia.ValenciaMercadoC_texto202') !!}</p>
-            <ul>
-                <li>{{ trans('Valencia.ValenciaMercadoC_texto203') }}</li>
-                <li>{{ trans('Valencia.ValenciaMercadoC_texto204') }}</li>
-                <li>{{ trans('Valencia.ValenciaMercadoC_texto205') }}</li>
-                <li>{{ trans('Valencia.ValenciaMercadoC_texto206') }}</li>
-            </ul>
-            <p>{{ trans('Valencia.ValenciaMercadoC_texto207') }}</p>
-            <p>{{ trans('Valencia.ValenciaMercadoC_texto208') }}</p>
-            <p>{{ trans('Valencia.ValenciaMercadoC_texto209') }}</p>
-            <p>{{ trans('Valencia.ValenciaMercadoC_texto210') }}</p>
-            <p>{{ trans('Valencia.ValenciaMercadoC_texto211') }}</p>
+            <p>{{ trans('Valencia.ValenciaMercadoC_texto202') }}</p>
+            <p>{{ trans('Valencia.ValenciaMercadoC_texto203') }}</p>
+            <p>{{ trans('Valencia.ValenciaMercadoC_texto204') }}</p>
+            <p>{{ trans('Valencia.ValenciaMercadoC_texto205') }}</p>
+            </div>
         </div>
     </div>
 </section>
-
 
 
 
