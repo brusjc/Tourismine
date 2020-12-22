@@ -132,4 +132,16 @@ return [
     'entering'                => 'Entrando...',
     'registered'              => 'Usuario registrado!',
 
+
+
+    "usuario"               => "Usuario",
+    'idiomas'               => 'Idiomas',
+    'master'                => 'Máster',
+    'politicacookies'       => 'política de cookies',
+    'politicaprivacidad'    => 'política de privacidad',
+    'volver'                => 'Volver',
+    'pueden_interesar'      => 'Páginas que te pueden interesar',
+
+
+
 ];

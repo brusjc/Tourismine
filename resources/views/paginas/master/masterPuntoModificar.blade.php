@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.frontAdmin.general')
 
 @section('contentheader_title')
-	{{ html_entity_decode(trans('pagMaster.masterModificar_title') )}}
+	{{ html_entity_decode(trans('master.masterModificar_title') )}}
 @endsection
 
 @section('contentheader_h1')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('breadcrumb1')
-	<a href="/master">{{ trans('pagMaster.master_breadcrumb') }}</a>
+	<a href="/master">{{ trans('master.master_breadcrumb') }}</a>
 @endsection
 
 @section('descripcion')
@@ -38,12 +38,12 @@
 						</div>
 					@endif
 				</div>
-				<form action="/masterPuntoModificar2/{{$punto['data']['id']}}" method="POST" class="form-horizontal">
+				<form action="/es/masterPuntoModificar2/{{$punto['data']['id']}}" method="POST" class="form-horizontal">
 					{{csrf_field()}}
 					<div class="box-body">
 						<div class="form-group">
 							<label for="ciudad" class="col-sm-2 control-label">
-								{{trans('pagMaster.Ciudad')}}
+								{{trans('master.Ciudad')}}
 							</label>
 							<div class="col-sm-7">
 								<select class="form-control select2" name="ciudad" id="ciudad">
@@ -61,7 +61,7 @@
 						</div>
 						<div class="form-group">
 							<label for="Nombre" class="col-sm-2 control-label">
-								{{trans('pagMaster.Nombre')}}
+								{{trans('master.Nombre')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="nombre" id="Nombre" placeholder="Enter ..." value="{{$punto['data']['nombre']}}">
@@ -69,7 +69,7 @@
 						</div>
 						<div class="form-group">
 							<label for="descripcion" class="col-sm-2 control-label">
-								{{trans('pagMaster.Descripcion')}}
+								{{trans('master.Descripcion')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Enter ..." value="{{$punto['data']['descripcion']}}">
@@ -78,7 +78,7 @@
 
 						<div class="form-group">
 							<label for="leyenda" class="col-sm-2 control-label">
-								{{trans('pagMaster.Leyenda')}}
+								{{trans('master.Leyenda')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="leyenda" id="leyenda" placeholder="Enter ..." value="{{$punto['data']['leyenda']}}">
@@ -87,7 +87,7 @@
 
 						<div class="form-group">
 							<label for="referencia" class="col-sm-2 control-label">
-								{{trans('pagMaster.Referencia')}}
+								{{trans('master.Referencia')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="referencia" id="referencia" placeholder="Enter ..." value="{{$punto['data']['referencia']}}">
@@ -96,7 +96,7 @@
 
 						<div class="form-group">
 							<label for="telefono" class="col-sm-2 control-label">
-								{{trans('pagMaster.Telefono')}}
+								{{trans('master.Telefono')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="telefono" id="telefono" placeholder="Enter ..." value="{{$punto['data']['telefono']}}">
@@ -105,7 +105,7 @@
 
 						<div class="form-group">
 							<label for="web" class="col-sm-2 control-label">
-								{{trans('pagMaster.Web')}}
+								{{trans('master.Web')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="web" id="web" placeholder="Enter ..." value="{{$punto['data']['web']}}">
@@ -114,7 +114,7 @@
 
 						<div class="form-group">
 							<label for="longitud" class="col-sm-2 control-label">
-								{{trans('pagMaster.Longitud')}}
+								{{trans('master.Longitud')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="longitud" id="longitud" placeholder="Enter ..." value="{{$punto['data']['longitud']}}">
@@ -123,7 +123,7 @@
 
 						<div class="form-group">
 							<label for="latitud" class="col-sm-2 control-label">
-								{{trans('pagMaster.Latitud')}}
+								{{trans('master.Latitud')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="latitud" id="latitud" placeholder="Enter ..." value="{{$punto['data']['latitud']}}">
@@ -132,7 +132,7 @@
 
 						<div class="form-group">
 							<label for="coste" class="col-sm-2 control-label">
-								{{trans('pagMaster.Coste')}}
+								{{trans('master.Coste')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="coste" id="coste" placeholder="Enter ..." value="{{$punto['data']['coste']}}">
@@ -141,7 +141,7 @@
 
 						<div class="form-group">
 							<label for="horario_id" class="col-sm-2 control-label">
-								{{trans('pagMaster.Horario')}}
+								{{trans('master.Horario')}}
 							</label>
 							<div class="col-sm-7">
 								<select class="form-control select2" name="horario_id" id="horario_id" value="{{$punto['data']['horario_id']}}">
@@ -157,7 +157,7 @@
 
 						<div class="form-group">
 							<label for="tipo_id" class="col-sm-2 control-label">
-								{{trans('pagMaster.Tipo')}}
+								{{trans('master.Tipo')}}
 							</label>
 							<div class="col-sm-7">
 								<select class="form-control select2" name="tipo_id" id="tipo_id">
@@ -174,7 +174,7 @@
 
 						<div class="form-group">
 							<label for="puntos" class="col-sm-2 control-label">
-								{{trans('pagMaster.Puntos')}}
+								{{trans('master.Puntos')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="puntos" id="puntos" placeholder="Enter ..." value="{{$punto['data']['puntos']}}">
@@ -183,7 +183,7 @@
 
 						<div class="form-group">
 							<label for="siglo" class="col-sm-2 control-label">
-								{{trans('pagMaster.Siglos')}}
+								{{trans('master.Siglos')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="siglo" id="siglo" placeholder="Enter ..." value="{{$punto['data']['siglo']}}">
@@ -192,7 +192,7 @@
 
 						<div class="form-group">
 							<label for="etiquetas" class="col-sm-2 control-label">
-								{{trans('pagMaster.Etiquetas')}}
+								{{trans('master.Etiquetas')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="etiquetas" id="etiquetas" placeholder="Enter ..." value="{{$punto['data']['etiquetas']}}">
@@ -201,7 +201,7 @@
 
 						<div class="form-group">
 							<label for="curiosidades" class="col-sm-2 control-label">
-								{{trans('pagMaster.Curiosidades')}}
+								{{trans('master.Curiosidades')}}
 							</label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" name="curiosidades" id="curiosidades" placeholder="Enter ..." value="{{$punto['data']['curiosidades']}}">
@@ -211,8 +211,8 @@
 						<input type="hidden" class="form-control" name="id" id="curiosidades" placeholder="Enter ..." value="{{$punto['data']['id']}}">
 					</div>
 					<div class="box-footer">
-						<a href="/master"  class="btn btn-info pull-left">Volver</a>
-						<button type="submit" class="btn btn-info pull-right">{{trans('pagMaster.Modificar')}}</button>
+						<a href="/es/master"  class="btn btn-info pull-left">Volver</a>
+						<button type="submit" class="btn btn-info pull-right">{{trans('master.Modificar')}}</button>
 					</div>
 				</form>
 			</div>

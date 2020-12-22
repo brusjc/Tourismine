@@ -1,0 +1,39 @@
+.navbar {
+    background: #325ea9;
+}
+
+.navbar.navbar-no-bg { 
+    background: #325ea9; 
+}
+
+.top-content {
+    background: #325ea9;
+}
+
+.elemento {
+    position: relative;
+    z-index: 0;
+    background: #325ea9;
+}
+
+.inner-bg{
+    padding: 100px 0 60px 0;
+}
+
+.navbar-header a {
+    color: #d2dbec;
+}
+
+.navbar-header a:hover {
+    color: #fff;
+}
+
+.img-redondo {
+    width: 60% !important;
+    margin-left: 20% !important;
+}
+
+.img-horizontal {
+    opacity:0.4;
+    filter:alpha(opacity=40); /* For IE8 and earlier */
+}

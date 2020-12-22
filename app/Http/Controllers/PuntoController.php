@@ -40,17 +40,17 @@ class PuntoController extends Controller
     
     public function store($punto)
     {
-        //Paso 1: sanitizamos las variables
-        $punto['ciudad_id'] = (int)$punto['ciudad_id'];
-        $punto['telefono'] = (int)$punto['telefono'];
-        $punto['longitud'] = (double)$punto['longitud'];
-        $punto['latitud'] = (double)$punto['latitud'];
-        $punto['coste'] = (int)$punto['coste'];
-        $punto['horario_id'] = (int)$punto['horario_id'];
-        $punto['tipo_id'] = (int)$punto['tipo_id'];
-        $punto['puntos'] = (int)$punto['puntos'];
-        if ($punto['ciudad_id']==0 || $punto['telefono']==0 || $punto['longitud']==0 || $punto['latitud']==0 || $punto['coste']==0 || $punto['horario_id']==0 || $punto['tipo_id']==0 || $punto['puntos']==0)
-        {
+
+        if(
+            $punto['ciudad_id'] != (int)$punto['ciudad_id'] ||
+            $punto['telefono'] != (int)$punto['telefono'] ||
+            $punto['longitud'] != (double)$punto['longitud'] ||
+            $punto['latitud'] != (double)$punto['latitud'] ||
+            $punto['coste'] != (int)$punto['coste'] ||
+            $punto['horario_id'] != (int)$punto['horario_id'] ||
+            $punto['tipo_id'] != (int)$punto['tipo_id'] ||
+            $punto['puntos'] != (int)$punto['puntos']
+        ){
             return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
         }
         
@@ -335,18 +335,16 @@ class PuntoController extends Controller
         $punto=$request->all();
         //return $punto;
 
-        $punto['ciudad_id'] = (int)$punto['ciudad_id'];
-        $punto['telefono'] = (int)$punto['telefono'];
-        $punto['longitud'] = (double)$punto['longitud'];
-        $punto['latitud'] = (double)$punto['latitud'];
-        $punto['coste'] = (int)$punto['coste'];
-        $punto['horario_id'] = (int)$punto['horario_id'];
-        $punto['tipo_id'] = (int)$punto['tipo_id'];
-        $punto['puntos'] = (int)$punto['puntos'];
-        if ($punto['ciudad_id']==0 || $punto['telefono']==0 || $punto['longitud']==0 || $punto['latitud']==0 || $punto['coste']==0 || $punto['horario_id']==0 || $punto['tipo_id']==0 || $punto['puntos']==0){
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
-        }
-        if ($punto['nombre']!=strip_tags($punto['nombre']) || 
+        if(
+            $punto['ciudad_id'] != (int)$punto['ciudad_id'] ||
+            $punto['telefono'] != (int)$punto['telefono'] ||
+            $punto['longitud'] != (double)$punto['longitud'] ||
+            $punto['latitud'] != (double)$punto['latitud'] ||
+            $punto['coste'] != (int)$punto['coste'] ||
+            $punto['horario_id'] != (int)$punto['horario_id'] ||
+            $punto['tipo_id'] != (int)$punto['tipo_id'] ||
+            $punto['puntos'] != (int)$punto['puntos'] ||
+            $punto['nombre']!=strip_tags($punto['nombre']) || 
             $punto['descripcion']!=strip_tags($punto['descripcion']) ||
             $punto['leyenda']!=strip_tags($punto['leyenda']) ||
             $punto['referencia']!=strip_tags($punto['referencia']) || 
@@ -354,9 +352,28 @@ class PuntoController extends Controller
             $punto['etiquetas']!=strip_tags($punto['etiquetas']) || 
             $punto['curiosidades']!=strip_tags($punto['curiosidades'])
         ){
-            return response()->json(['status'=>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
+            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
         }
-        //return $punto;
+
+        if(
+            $punto['ciudad_id'] == "" ||
+            $punto['telefono'] == "" ||
+            $punto['longitud'] == "" ||
+            $punto['latitud'] == "" ||
+            $punto['coste'] == "" ||
+            $punto['horario_id'] == "" ||
+            $punto['tipo_id'] == "" ||
+            $punto['puntos'] == "" ||
+            $punto['nombre'] == "" || 
+            $punto['descripcion'] == "" ||
+            $punto['leyenda'] == "" ||
+            $punto['referencia'] == "" || 
+            $punto['siglo'] == "" || 
+            $punto['etiquetas'] == "" || 
+            $punto['curiosidades'] == ""
+        ){
+            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
+        }
 
         //Paso 2: Creamos el punto nuevo
         $respunto = $this->store($punto);
@@ -403,6 +420,25 @@ class PuntoController extends Controller
     {
         $punto=$request->all();
         //return $punto;
+
+
+        if(
+            $id != (int)$id ||
+            $punto['ciudad_id'] != (int)$punto['ciudad_id'] ||
+            $punto['telefono'] != (int)$punto['telefono'] ||
+            $punto['longitud'] != (double)$punto['longitud'] ||
+            $punto['latitud'] != (double)$punto['latitud'] ||
+            $punto['coste'] != (int)$punto['coste'] ||
+            $punto['horario_id'] != (int)$punto['horario_id'] ||
+            $punto['tipo_id'] != (int)$punto['tipo_id'] ||
+            $punto['puntos'] != (int)$punto['puntos']
+        ){
+            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
+        }
+
+
+
+
         $id=(int)$id;
         $punto['id'] = (int)$punto['id'];
         $punto['ciudad_id'] = (int)$punto['ciudad'];

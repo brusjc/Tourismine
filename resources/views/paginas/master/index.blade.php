@@ -1,19 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.frontAdmin.general')
 
 @section('contentheader_title')
-	{{ html_entity_decode(trans('pagRaiz.master_title') )}}
+	{{ html_entity_decode(trans('master.master_title') )}}
 @endsection
 
 @section('contentheader_h1')
-	{{ html_entity_decode(trans('pagRaiz.master_h1') )}}
+	{{ html_entity_decode(trans('master.master_h1') )}}
 @endsection
 
 @section('descripcion')
-    {{ html_entity_decode(trans('pagRaiz.master_descripcion') )}}
+    {{ html_entity_decode(trans('master.master_descripcion') )}}
 @endsection
 
 @section('keywords')
-    {{ html_entity_decode(trans('pagRaiz.master_keywords') )}}
+    {{ html_entity_decode(trans('master.master_keywords') )}}
 @endsection
 
 @section('main_content')
@@ -26,7 +26,7 @@
                         <th style="width: 8%">Ciudad</th>
                         <th style="width: 54%">Punto</th>
                         <th style="width: 15%">
-                            <a href="/masterPuntoNuevo"><button type="button" class="btn btn-block btn-info">Nuevo punto</button></a>
+                            <a href="/es/masterPuntoNuevo"><button type="button" class="btn btn-block btn-info">Nuevo punto</button></a>
                         </th>
                         <th style="width: 5%"><i class="fa fa-edit"></th>
                         <th style="width: 5%"><i class="fa fa-trash"></th>
@@ -47,8 +47,8 @@
 				            <td></td>
 				            <td></td>
 				            <td colspan="2">{{$punto['nombre']}}</td>
-				            <td><a href="/masterPuntoModificar/{{$punto['id']}}"><i class="fa fa-edit"></i></a></td>
-				            <td><a href="/masterPuntoBorrar1/{{$punto['id']}}"><i class="fa fa-trash"></i></a></td>
+				            <td><a href="/es/masterPuntoModificar/{{$punto['id']}}"><i class="fa fa-edit"></i></a></td>
+				            <td><a href="/es/masterPuntoBorrar1/{{$punto['id']}}"><i class="fa fa-trash"></i></a></td>
 				        </tr>
 					@endforeach        
                 </table>

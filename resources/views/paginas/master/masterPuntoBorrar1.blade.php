@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontAdmin.general')
 
 @section('contentheader_title')
 	{{ html_entity_decode(trans('pagMaster.masterBorrar1_title') )}}
@@ -27,10 +27,10 @@
     </div>
 	<div class="row">
 		<div class="col-sm-4 col-md-3">
-			<a href="/master"><button type="submit" class="btn btn-info btn-lg pull-left">{{trans('pagination.volver')}}</button></a>
+			<a href="/es/master"><button type="submit" class="btn btn-info btn-lg pull-left">{{trans('pagination.volver')}}</button></a>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<a href="/masterPuntoBorrar2/{{$id}}"><button type="submit" class="btn btn-danger btn-lg pull-center">{{trans('pagination.confirmar')}}</button></a>
+			<a href="/es/masterPuntoBorrar2/{{$id}}"><button type="submit" class="btn btn-danger btn-lg pull-center">{{trans('pagination.confirmar')}}</button></a>
 		</div>
 	</div>
 @endsection
