@@ -17,12 +17,18 @@ return [
 'Coste'			=> 'Coste',
 'Horario'		=> 'Horario',
 'Tipo'			=> 'Tipo',
-'Puntos'		=> 'Puntos',
+'Puntos'        => 'Puntos',
+'Puntuacion'    => 'Puntuación',
 'Siglos'		=> 'Siglos',
 'Etiquetas'		=> 'Etiquetas',
 'Curiosidades'	=> 'Curiosidades',
 'Guardar'		=> 'Guardar',
-'Modificar'		=> 'Modificar',
+'actualizar'    => 'actualizar',
+'volver'        => 'volver',
+'Modificar'     => 'Modificar',
+'direccion'     => 'dirección',
+'cpostal'       => 'código postal',
+
 
 
 
@@ -58,27 +64,32 @@ return [
 
 
 
-'masterBorrar1_breadcrumb' => "Confirmar borrado de punto",
-'masterBorrar1_title' => "Confirmar borrado de punto",
-'masterBorrar1_h1' => "Confirmar borrado de punto",
-'masterBorrar1_descripcion' => "Tourismine, Confirmar borrado de punto",
-'masterBorrar1_keywords' => "Tourismine, Confirmar borrado de punto",
+'masterPuntoBorrar1_breadcrumb' => "Confirmar borrado de punto",
+'masterPuntoBorrar1_title' => "Confirmar borrado de punto",
+'masterPuntoBorrar1_h1' => "Confirmar borrado de punto",
+'masterPuntoBorrar1_descripcion' => "Tourismine, Confirmar borrado de punto",
+'masterPuntoBorrar1_keywords' => "Tourismine, Confirmar borrado de punto",
 
-'masterBorrar1_texto1' => "Antes de borrar definitivamente el punto seleccionado te rogamos prestes atención al punto que vas a borrar.",
-'masterBorrar1_texto2' => "Si confirmas el borrado del fichero no podrás volver a recuperarlo en el futuro.",
-
-
+'masterPuntoBorrar1_texto1' => "Antes de borrar definitivamente el punto seleccionado te rogamos prestes atención al punto que vas a borrar.",
+'masterPuntoBorrar1_texto2' => "Si confirmas el borrado del fichero no podrás volver a recuperarlo en el futuro.",
 
 
 
-
-
-
-//MasterPuntoBorrar2
 'MasterPuntoBorrar2_Title'      => 'Borrado confirmado de un punto',
 'MasterPuntoBorrar2_H1'         => 'Borrado de un punto',
 'MasterPuntoBorrar2_Body1'      => 'Se ha borrado el punto seleccionado.',
 'MasterPuntoBorrar2_Body2'      => 'Ha habido algún problema que no ha permitido borrar el punto. Por favor, vuelve a intenmtarlo.', 
+
+
+
+'masterTextoBorrar1_breadcrumb' => "Confirmar borrado de texto",
+'masterTextoBorrar1_title' => "Confirmar borrado de texto",
+'masterTextoBorrar1_h1' => "Confirmar borrado de texto",
+'masterTextoBorrar1_descripcion' => "Tourismine, Confirmar borrado de texto",
+'masterTextoBorrar1_keywords' => "Tourismine, Confirmar borrado de texto",
+
+'masterTextoBorrar1_texto1' => "Antes de borrar definitivamente el texto seleccionado te rogamos prestes atención al texto que vas a borrar.",
+'masterTextoBorrar1_texto2' => "Si confirmas el borrado del texto no podrás volver a recuperarlo en el futuro.",
 
 
 

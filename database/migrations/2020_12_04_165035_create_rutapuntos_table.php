@@ -15,9 +15,9 @@ class CreateRutapuntosTable extends Migration
     {
         Schema::create('rutapuntos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('punto_id');
+            $table->bigInteger('punto_id');
             $table->integer('orden');
-            $table->bigIncrements('ciudad_id');
+            $table->bigInteger('ciudad_id');
             $table->timestamps();
         });
     }

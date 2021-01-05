@@ -31,18 +31,22 @@
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <p>{{ trans('Valencia.ValenciaLonja_texto1') }}</p>
-            <p>{!! trans('Valencia.ValenciaLonja_texto2') !!}</p>
+    <div class="container-fluid">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <p>{{ trans('Valencia.ValenciaLonja_texto1') }}</p>
+                <p>{!! trans('Valencia.ValenciaLonja_texto2') !!}</p>
+            </div>
         </div>
     </div>
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <h2>{{ trans('Valencia.ValenciaLonja_titulo1') }}</h2>
+    <div class="container-fluid">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <h2>{{ trans('Valencia.ValenciaLonja_titulo1') }}</h2>
+            </div>
             <div class="col-md-7 pt-5 order-2">
                 <p>{{ trans('Valencia.ValenciaLonja_texto101') }}</p>
                 <p>{{ trans('Valencia.ValenciaLonja_texto102') }}</p>
@@ -53,7 +57,7 @@
             </div>
             <div class="col-md-5">
                 <div class="img-redondo pt-5 mx-3 mv-3">
-                    <img class="img-responsive img-rounded" src="/img/valencia/fachada_lonja_de_la_seda_valencia.jpg" />
+                    <img class="img-responsive img-rounded" src="/img/Valencia/fachada_lonja_de_la_seda_valencia.jpg" />
                 </div>
             </div>
         </div>
@@ -61,27 +65,28 @@
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <h2>{{ trans('Valencia.ValenciaLonja_titulo2') }}</h2>
-            <p>{{ trans('Valencia.ValenciaLonja_texto201') }}</p>
-            <p>{!! trans('Valencia.ValenciaLonja_texto202') !!}</p>
-            <ul>
-                <li>{{ trans('Valencia.ValenciaLonja_texto203') }}</li>
-                <li>{{ trans('Valencia.ValenciaLonja_texto204') }}</li>
-                <li>{{ trans('Valencia.ValenciaLonja_texto205') }}</li>
-                <li>{{ trans('Valencia.ValenciaLonja_texto206') }}</li>
-            </ul>
-            <p>{{ trans('Valencia.ValenciaLonja_texto207') }}</p>
-            <p>{{ trans('Valencia.ValenciaLonja_texto208') }}</p>
-            <p>{{ trans('Valencia.ValenciaLonja_texto209') }}</p>
-            <p>{{ trans('Valencia.ValenciaLonja_texto210') }}</p>
-            <p>{{ trans('Valencia.ValenciaLonja_texto211') }}</p>
+    <div class="container-fluid">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <h2>{{ trans('Valencia.ValenciaLonja_titulo2') }}</h2>
+            </div>
+            <div class="col-md-12">
+                <p>{{ trans('Valencia.ValenciaLonja_texto201') }}</p>
+                <p>{!! trans('Valencia.ValenciaLonja_texto202') !!}</p>
+                <ul>
+                    <li>{{ trans('Valencia.ValenciaLonja_texto203') }}</li>
+                    <li>{{ trans('Valencia.ValenciaLonja_texto204') }}</li>
+                    <li>{{ trans('Valencia.ValenciaLonja_texto205') }}</li>
+                    <li>{{ trans('Valencia.ValenciaLonja_texto206') }}</li>
+                </ul>
+                <p>{{ trans('Valencia.ValenciaLonja_texto207') }}</p>
+                <p>{{ trans('Valencia.ValenciaLonja_texto208') }}</p>
+                <p>{{ trans('Valencia.ValenciaLonja_texto209') }}</p>
+                <p>{{ trans('Valencia.ValenciaLonja_texto210') }}</p>
+                <p>{{ trans('Valencia.ValenciaLonja_texto211') }}</p>
+            </div>
         </div>
     </div>
 </section>
-
-
-
 
 @endsection

@@ -14,7 +14,7 @@ class CreateRollsTable extends Migration
     public function up()
     {
         Schema::create('rolls', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nombre');
         });
     }

@@ -577,6 +577,7 @@ class ComposerStaticInitefff0edfbbc4730bf04fd1e802e43938
 
     public static $classMap = array (
         'App\\Ciudad' => __DIR__ . '/../..' . '/app/Ciudad.php',
+        'App\\Client' => __DIR__ . '/../..' . '/app/Client.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Estado' => __DIR__ . '/../..' . '/app/Estado.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -589,6 +590,7 @@ class ComposerStaticInitefff0edfbbc4730bf04fd1e802e43938
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\CiudadController' => __DIR__ . '/../..' . '/app/Http/Controllers/CiudadController.php',
+        'App\\Http\\Controllers\\ClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\EspanaController' => __DIR__ . '/../..' . '/app/Http/Controllers/EspanaController.php',
         'App\\Http\\Controllers\\EstadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstadoController.php',

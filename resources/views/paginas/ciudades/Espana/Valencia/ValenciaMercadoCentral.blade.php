@@ -6,11 +6,11 @@
 
 @section('breadcrumb0')<a href="/{{session('lang')}}/">{{ trans('message.home') }}</a>@endsection
 
-@section('breadcrumb1')<a href="{{session('BC1')}}">{{ trans(session('BC1texto')) }}</a>@endsection
+@section('breadcrumb1')<a href="{{session('BC1')}}">España</a>@endsection
 
-@section('breadcrumb2')<a href="{{session('BC2')}}">{{ trans(session('BC2texto')) }}</a>@endsection
+@section('breadcrumb2')<a href="{{session('BC2')}}">Valencia</a>@endsection
 
-@section('breadcrumb3'){{ trans(session('BC3texto')) }}@endsection
+@section('breadcrumb3'){{ trans('Valencia.ValenciaMercadoC_breadcrumb') }}@endsection
 
 @section('descripcion'){{ trans('Valencia.ValenciaMercadoC_descripcion') }}@endsection
 
@@ -31,7 +31,7 @@
 </section>
 
 <section>
-    <div class="container text-left">
+    <div class="container">
         <div class="row content h-100 text-justify">
             <div class="col-md-12">
                 <p>{{ trans('Valencia.ValenciaMercadoC_texto1') }}</p>
@@ -62,7 +62,7 @@
             </div>
             <div class="col-md-5">
                 <div class="img-redondo pt-5 mx-3 mv-3">
-                    <img class="img-responsive img-rounded" src="/img/valencia/mercado-central-estructura.jpg" />
+                    <img class="img-responsive img-rounded" src="/img/Valencia/mercado-central-estructura.jpg" />
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
         <div class="row content h-100 text-justify">
             <div class="col-md-5">
                 <div class="img-redondo pt-5 mx-3 mv-3">
-                    <img class="img-responsive img-rounded" src="/img/valencia/mercado-central-cupula.jpg" />
+                    <img class="img-responsive img-rounded" src="/img/Valencia/mercado-central-cupula.jpg" />
                 </div>
             </div>
             <div class="col-md-7">

@@ -31,27 +31,34 @@
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <p>{{ trans('Valencia.Valencia_texto1') }}</p>
+    <div class="container-fluid">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <p>{{ trans('Valencia.Valencia_texto1') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto2') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto3') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto4') }}</p>
+            </div>
         </div>
     </div>
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
-            <h2>{{ trans('Valencia.Valencia_titulo1') }}</h2>
-        </div 
-        <div class="row content h-100">
+    <div class="container-fluid">
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12">
+                <h2>{{ trans('Valencia.Valencia_titulo100') }}</h2>
+            </div>
+        </div>
+        <div class="row content h-100 text-justify">
             <div class="col-md-7 pt-5">
-                <p>{{ trans('Valencia.Valencia_texto2') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto3') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto4') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto101') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto102') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto103') }}</p>
             </div>
             <div class="col-md-5">
                 <div class="img-redondo  pt-5 mx-3 mv-3">
-                    <img class="img-responsive img-rounded" src="/img/valencia/ciudad-de-las-artes-y-las-ciencias-valencia.jpg" />
+                    <img class="img-responsive img-rounded" src="/img/Valencia/Valencia-Torres-Serranos.jpg" />
                 </div>
             </div>
         </div>
@@ -59,31 +66,30 @@
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content">
-            <h2>{{ trans('Valencia.Valencia_titulo2') }}</h2>
-        </div 
-        <div class="row content h-100">
-            <div class="col-md-12 pt-5 text-left">
-                <p>{{ trans('Valencia.Valencia_texto101') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto102') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto103') }}</p>
+    <div class="container-fluid">
+        <div class="row content text-justify">
+            <div class="col-md-12">
+                <h2>{{ trans('Valencia.Valencia_titulo200') }}</h2>
+            </div>
+        </div> 
+        <div class="row content h-100 text-justify">
+            <div class="col-md-12 pt-5">
+                <p>{{ trans('Valencia.Valencia_texto201') }}</p>
             </div>
         </div>
     </div>
 </section>
 
 <section class="container">
-    <div class="container-fluid text-left">
-        <div class="row content h-100">
+    <div class="container-fluid">
+        <div class="row content h-100 text-justify">
             <div class="col-md-5 pt-5">
-                <img class="img-responsive img-rounded w-100" src="/img/valencia/valencia-fallas.jpg" />
+                <img class="img-responsive img-rounded w-100" src="/img/Valencia/valencia-fallas.jpg" />
             </div>
             <div class="col-md-7 pt-5 text-left">
-                <p>{{ trans('Valencia.Valencia_texto104') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto105') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto106') }}</p>
-                <p>{{ trans('Valencia.Valencia_texto107') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto202') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto203') }}</p>
+                <p>{{ trans('Valencia.Valencia_texto204') }}</p>
             </div>
         </div>
     </div>
@@ -94,52 +100,63 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 call-to-action section-description wow fadeInLeftBig img-horizontal">
-                    <img class="img-responsive img-rounded w-100" src="/img/valencia/valencia-ciudad-ciencias-fachada.jpg" />
+                    <img class="img-responsive img-rounded w-100" src="/img/Valencia/valencia-ciudad-ciencias-fachada.jpg" />
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="services" class="services mt-5">
-    <div class="container">
-        <div class="section-title" data-aos="fade-up">
-            <h2>{{ trans('ciudades.PuntoInteres') }}</h2>
-            <p>{{ trans('Valencia.Valencia_texto201') }}</p>
+<section class="my-5">
+    <div class="presentation-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 wow fadeInLeftBig">
+                    <h2><span class="violet">{{ trans('ciudades.PuntosInteres') }}</span></h2>
+                    <p>{{ trans('Valencia.Valencia_texto301') }}</p>
+                </div>
+            </div>
         </div>
-       <div class="row">
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                    <a href="/{{ session('lang') }}/Valencia-lonja-seda">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        <i class="fa fa-user"></i>
-                        <h4 class="title">{{ trans('Valencia.ValenciaLonja_h1') }}</h4>
-                        <p class="description">{{ trans('Valencia.ValenciaLonja_enlace1') }}</p>
-                    </a>
+    </div>
+
+    <div class="services-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="service wow fadeInUp">
+                        <a href="/{{ session('lang') }}/Valencia-lonja-seda">
+                            <div class="service-icon"><i class="fa fa-eye"></i></div>
+                            <h4 class="title">{{ trans('Valencia.ValenciaLonja_h1') }}</h4>
+                            <p class="description ">{{ trans('Valencia.ValenciaLonja_enlace1') }}</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                    <a href="/{{ session('lang') }}/Valencia-mercado-central">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        <i class="fa fa-user"></i>
-                        <h4 class="title">{{ trans('Valencia.ValenciaMercadoC_h1') }}</h4>
-                        <p class="description">{{ trans('Valencia.ValenciaMercadoC_enlace1') }}</p>
-                    </a>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="service wow fadeInUp">
+                        <a href="/{{ session('lang') }}/Valencia-mercado-central">
+                            <div class="service-icon"><i class="fa fa-eye"></i></div>
+                            <h4 class="title">{{ trans('Valencia.ValenciaMercadoC_breadcrumb') }}</h4>
+                            <p class="description">{{ trans('Valencia.ValenciaMercadoC_enlace1') }}</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                    <div class="icon"><i class="bx bx-tachometer"></i></div>
-                    <h4 class="title"><a href="">Magni Dolores</a></h4>
-                    <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="service wow fadeInUp">
+                        <a href="/{{ session('lang') }}/Valencia-Ciudad-Artes-Ciencias">
+                            <div class="service-icon"><i class="fa fa-eye"></i></div>
+                            <h4 class="title">{{ trans('Valencia.CAC_breadcrumb') }}</h4>
+                            <p class="description">{{ trans('Valencia.CAC_enlace1') }}</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-                    <div class="icon"><i class="bx bx-world"></i></div>
-                    <h4 class="title"><a href="">Nemo Enim</a></h4>
-                    <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="service wow fadeInUp">
+                        <a href="/{{ session('lang') }}/Valencia-Plaza-Redonda">
+                            <div class="service-icon"><i class="fa fa-eye"></i></div>
+                            <h4 class="title">{{ trans('Valencia.Redonda_breadcrumb') }}</h4>
+                            <p class="description">{{ trans('Valencia.Redonda_enlace1') }}</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

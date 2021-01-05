@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontAdmin.general')
 
 @section('contentheader_title')
 	{{ html_entity_decode(trans('pagRaiz.raiz_title') )}}
@@ -17,6 +17,7 @@
 @endsection
 
 @section('main_content')
+
     <div class="row">
         <div class="col-md-8">
             <div class="box box-info">

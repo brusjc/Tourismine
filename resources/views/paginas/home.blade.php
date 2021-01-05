@@ -1,20 +1,14 @@
 @extends('layouts.frontandia.general')
 
-@section('contentheader_title')
-	{{ trans('home.home_title') }}
-@endsection
+@section('contentheader_title'){{ trans('home.home_title') }}@endsection
 
-@section('contentheader_h1')
-	{{ trans('home.home_h1') }}
-@endsection
+@section('contentheader_h1'){{ trans('home.home_h1') }}@endsection
 
-@section('descripcion')
-    {{ trans('home.home_descripcion') }}
-@endsection
+@section('breadcrumb0'){{ trans('message.home') }}@endsection
 
-@section('keywords')
-    {{ trans('home.home_keywords') }}
-@endsection
+@section('descripcion'){{ trans('home.home_descripcion') }}@endsection
+
+@section('keywords'){{ trans('home.home_keywords') }}@endsection
 
 @section('main_content')
 
