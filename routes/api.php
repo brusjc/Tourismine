@@ -32,5 +32,4 @@ Route::group(['middleware' => 'auth:api'], function ()
     Route::get('/getPunto/{id}', 'PuntoController@showXId')->name('getPunto');
     Route::get('/getLocalidades', 'CiudadController@showConPuntos')->name('getLocalidades');
 	Route::get('/getPuntos/{request}', 'PuntoController@showXMap')->name('getPuntos');
-    Route::post('/getLocalidades', 'CiudadController@showConPuntos')->name('getLocalidades');
 });
