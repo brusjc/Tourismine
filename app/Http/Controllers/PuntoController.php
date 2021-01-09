@@ -231,6 +231,34 @@ class PuntoController extends Controller
         } 
     }
 
+    public function showXCiudad($id) 
+    {
+        //Paso 1: Sanitizamos las variables
+        $id=(int)$id;
+        if($id==0) {
+            return response()->json(['status'=>['error'=>3, 'message'=>'Error en datos iniciales'], 'data'=>null]);
+        }
+
+        //Paso 2: realizamos la consulta
+        try
+        {
+            $dato = Punto::where('ciudad_id', $id)
+                ->with('Ciudad')
+                ->with('Provincia')
+                ->orderBy('nombre', 'asc')
+                ->get();
+        } catch (\Exception $e) {
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+        }
+
+        if(count($dato)==0)
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
+        } else {
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
+        } 
+    }
+
     public function showXId($id) 
     {
         //Utilizado en la API getPunto

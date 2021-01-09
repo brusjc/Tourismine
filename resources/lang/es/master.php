@@ -28,6 +28,10 @@ return [
 'Modificar'     => 'Modificar',
 'direccion'     => 'dirección',
 'cpostal'       => 'código postal',
+'nuevaRuta'     => 'nueva Ruta',
+'incluirPunto'  => 'incluir punto',
+'punto'         => 'punto',
+'orden'         => 'orden',
 
 
 
@@ -90,6 +94,33 @@ return [
 
 'masterTextoBorrar1_texto1' => "Antes de borrar definitivamente el texto seleccionado te rogamos prestes atención al texto que vas a borrar.",
 'masterTextoBorrar1_texto2' => "Si confirmas el borrado del texto no podrás volver a recuperarlo en el futuro.",
+
+
+
+'masterRutas_breadcrumb' => "Rutas",
+'masterRutas_title' => "Rutas de la ciudad de ",
+'masterRutas_h1' => "Rutas de la ciudad de ",
+'masterRutas_descripcion' => "Rutas de la ciudad de ",
+'masterRutas_keywords' => "Rutas de la ciudad de ",
+
+
+
+'RutaPuntoBorrar_breadcrumb' => "Borrar punto",
+'RutaPuntoBorrar_title' => "Borrar punto de la ruta de la ciudad de ",
+'RutaPuntoBorrar_h1' => "Borrar punto de la ruta de la ciudad de ",
+'RutaPuntoBorrar_descripcion' => "Borrar punto de la ruta de la ciudad de ",
+'RutaPuntoBorrar_keywords' => "Borrar punto de la ruta de la ciudad de ",
+
+'RutaPuntoBorrar_texto1' => "Antes de borrar definitivamente el punto seleccionado de esta ruta te rogamos prestes atención al texto que vas a borrar.",
+'RutaPuntoBorrar_texto2' => "Por favor, confirma el norrado del punto de la ruta",
+
+
+
+'RutaPuntoNuevo_breadcrumb' => "Punto nuevo",
+'RutaPuntoNuevo_title' => "Punto nuevo de la ruta ",
+'RutaPuntoNuevo_h1' => "Punto nuevo de la ruta ",
+'RutaPuntoNuevo_descripcion' => "Punto nuevo de la ruta ",
+'RutaPuntoNuevo_keywords' => "Punto nuevo de la ruta ",
 
 
 

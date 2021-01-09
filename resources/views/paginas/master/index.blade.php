@@ -41,6 +41,7 @@
 					        <tr>
 					            <td></td>
 					            <td colspan="3">{{$punto['ciudad']['nombre']}}</td>
+                                <td colspan="2"><a href="/es/rutas/{{$punto['ciudad']['id']}}">Rutas</a></td>
 					        </tr>
 				        @endif
 				        <tr>

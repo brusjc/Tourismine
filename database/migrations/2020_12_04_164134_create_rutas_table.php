@@ -17,7 +17,7 @@ class CreateRutasTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('ciudad_id');
             $table->string('nombre');
-            $table->bigInteger('tipo');
+            $table->bigInteger('tipo_id');
             $table->timestamps();
         });
     }
