@@ -255,18 +255,22 @@ class RutaController extends Controller
         //return $rutas;
 
         //Paso 3: Obtenemos datos de cada punto
-        foreach($rutas as $key1=>$ruta)
+        if(isset($rutas))
         {
-            foreach($ruta['rutapunto'] as $key2=>$punto)
+            foreach($rutas as $key1=>$ruta)
             {
-                $respunto = app('App\Http\Controllers\PuntoController')->showXId($punto['punto_id']);
-                $respunto = @json_decode(json_encode($respunto), true);
-                $respunto=$respunto['original']['data'];
-                //return $respunto;
+                foreach($ruta['rutapunto'] as $key2=>$punto)
+                {
+                    $respunto = app('App\Http\Controllers\PuntoController')->showXId($punto['punto_id']);
+                    $respunto = @json_decode(json_encode($respunto), true);
+                    $respunto=$respunto['original']['data'];
+                    //return $respunto;
 
-                $rutas[$key1]['rutapunto'][$key2]['datospunto']=$respunto;
+                    $rutas[$key1]['rutapunto'][$key2]['datospunto']=$respunto;
+                }
             }
-
+        } else {
+            $rutas=array();
         }
         //return $rutas;
 

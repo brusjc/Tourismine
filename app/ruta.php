@@ -17,8 +17,8 @@ class Ruta extends Model
     }
 
     //Creamos relación con la tabla punto
-    public function rutaPunto() {
-        return $this->hasMany('App\RutaPunto');
+    public function rutapunto() {
+        return $this->hasMany('App\Rutapunto');
     }
 
 }
