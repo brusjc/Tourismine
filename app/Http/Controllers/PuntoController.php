@@ -406,49 +406,94 @@ class PuntoController extends Controller
         //Paso 1: Sanitizamos las variables
         $punto=$request->all();
         //return $punto;
+        if($punto['nombre']!=strip_tags($punto['nombre']) || $punto['nombre'] == "")
+        {
+            $errors[]="Error al obtener el nombre del punto";
+        }
+
+        if($punto['ciudad_id']!=strip_tags($punto['ciudad_id']) || $punto['ciudad_id'] == "")
+        {
+            $errors[]="Error al obtener la ciudad del punto";
+        }
+
+        if($punto['direccion']!=strip_tags($punto['direccion']) || $punto['direccion'] == "")
+        {
+            $errors[]="Error al obtener la direccion del punto";
+        }
+
+        if($punto['cpostal'] != (int)$punto['cpostal'] || $punto['cpostal'] == 0)
+        {
+            $errors[]="Error al obtener el código postal del punto";
+        }
 
         $punto['telefono'] = str_replace(' ', '', $punto['telefono']);
-        if(strlen($punto['telefono'])==0){$punto['telefono'] = 0;}
-        if(
-            $punto['nombre']!=strip_tags($punto['nombre']) ||
-            $punto['ciudad_id'] != (int)$punto['ciudad_id'] ||
-            $punto['direccion']!=strip_tags($punto['direccion']) ||
-            $punto['cpostal'] != (int)$punto['cpostal'] ||
-            $punto['telefono'] != (int)$punto['telefono'] ||
-            $punto['longitud'] != (double)$punto['longitud'] ||
-            $punto['latitud'] != (double)$punto['latitud'] ||
-            $punto['horario_id'] != (int)$punto['horario_id'] ||
-            $punto['tipo_id'] != (int)$punto['tipo_id'] ||
-            $punto['puntos'] != (int)$punto['puntos'] ||
-            $punto['descripcion']!=strip_tags($punto['descripcion']) ||
-            $punto['etiquetas']!=strip_tags($punto['etiquetas'])
-        ){
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
+        if($punto['telefono'] != (int)$punto['telefono'] || strlen($punto['telefono'])==0 || $punto['telefono'] == 0)
+        {
+            $errors[]="Error al obtener el teléfono del punto";
         }
 
-        if(
-            $punto['nombre'] == "" || 
-            $punto['ciudad_id'] == "" ||
-            $punto['direccion'] == "" ||
-            $punto['cpostal'] == "" ||
-            $punto['longitud'] == "" ||
-            $punto['latitud'] == "" ||
-            $punto['horario_id'] == "" ||
-            $punto['tipo_id'] == "" ||
-            $punto['puntos'] == "" ||
-            $punto['descripcion'] == "" ||
-            $punto['etiquetas'] == ""
-        ){
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
+        if($punto['longitud'] != (float)$punto['longitud'] || $punto['longitud'] == 0)
+        {
+            $errors[]="Error al obtener la longitud del punto";
+        }
+
+        if($punto['latitud'] != (float)$punto['latitud'] || $punto['latitud'] == 0)
+        {
+            $errors[]="Error al obtener la latitud del punto";
+        }
+
+        if($punto['horario_id'] != (int)$punto['horario_id'] || $punto['horario_id'] == 0)
+        {
+            $errors[]="Error al obtener el horario del punto";
+        }
+
+        if($punto['tipo_id'] != (int)$punto['tipo_id'] || $punto['tipo_id'] == 0)
+        {
+            $errors[]="Error al obtener el horario del punto";
+        }
+
+        if($punto['puntos'] != (int)$punto['puntos'] || $punto['puntos'] == 0)
+        {
+            $errors[]="Error al obtener la puntuación del punto";
+        }
+
+        if($punto['descripcion']!=strip_tags($punto['descripcion']) || $punto['descripcion'] == "")
+        {
+            $errors[]="Error al obtener la descripcion del punto";
+        }
+
+        if($punto['etiquetas']!=strip_tags($punto['etiquetas']) || $punto['etiquetas'] == "")
+        {
+            $errors[]="Error al obtener las etiquetas del punto";
         }
         //Paso 2: Creamos el punto nuevo
-        $respunto = $this->store($punto);
-        $respunto = @json_decode(json_encode($respunto), true);
-        //return $respunto;
-        $respunto=$respunto['original'];
+        if(!isset($errors))
+        {
+            $respunto = $this->store($punto);
+            $respunto = @json_decode(json_encode($respunto), true);
+            //return $respunto;
+            $mipunto=$respunto['original'];
 
-        //Paso 3: redirigimos a la vista
-        return redirect()->action('PuntoController@masterPuntos', compact('mipunto'));
+            //Paso 3: redirigimos a la vista
+            return redirect()->action('PuntoController@masterPuntos');            
+        } else {
+            //A: Obtenemos la tabla de tipod de monumento
+            $tipos = app('App\Http\Controllers\TipoController')->index();
+            $tipos = @json_decode(json_encode($tipos), true);
+            $tipos=$tipos['original'];
+            //return $tipos;
+
+            //B: Obtenemos las ciudades
+            $ciudades = app('App\Http\Controllers\CiudadController')->index();
+            $ciudades = @json_decode(json_encode($ciudades), true);
+            $ciudades=$ciudades['original'];
+            //return $ciudades;
+
+            //return $errors;
+            //C: Vamos al formulario
+            return view('paginas.master.masterPuntoNuevo', compact('tipos', 'ciudades', 'errors'));
+        }
+
     }
 
     public function puntoModificar1($id)
