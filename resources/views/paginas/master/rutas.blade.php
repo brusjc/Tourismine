@@ -27,9 +27,9 @@
                 <table class="table table-bordered">
                     <tr>
                         <th style="width: 8%">Ruta</th>
-                        <th style="width: 8%">Tipo</th>
-                        <th style="width: 54%">Puntos</th>
-                        <th style="width: 15%">
+                        <th style="width: 6%">Orden</th>
+                        <th style="width: 61%">Puntos</th>
+                        <th style="width: 13%">
                             <a href="/es/masterRutaNueva"><button type="button" class="btn btn-block btn-info">{{ ucfirst(trans('master.nuevaRuta')) }}</button></a>
                         </th>
                         <th style="width: 5%"><i class="fa fa-edit"></th>
@@ -47,7 +47,8 @@
                                 @foreach($ruta['rutapunto'] as $key2=>$punto)
                                     <tr>
                                         <td></td>
-                                        <td colspan="3">{{$punto['datospunto']['nombre']}}</td>
+                                        <td class="center">{{$punto['orden']}}</td>
+                                        <td colspan="2">{{$punto['datospunto']['nombre']}}</td>
                                         <td></td>
                                         <td><a href="/es/ruta-punto-borrar1/{{$punto['id']}}"><i class="fa fa-trash"></i></a></td>
                                     </tr>

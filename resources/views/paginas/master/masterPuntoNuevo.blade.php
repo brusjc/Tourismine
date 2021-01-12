@@ -56,7 +56,7 @@
 					<div class="box-body">
 
                         <div class="row">
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-6">
                                 <label for="Nombre" class="control-label">{{trans('master.Nombre')}}(*)</label>
                                 <input type="text" class="form-control" name="nombre" id="Nombre" placeholder="Enter ..."  value="{{ old('nombre') }}">
                             </div>
@@ -170,5 +170,5 @@
 			</div>
 		</div>
 	</div>
-
+</section>
 @endsection

@@ -220,7 +220,9 @@ class RutaController extends Controller
         //Paso 2: Hacdemos la consulta
         try 
         {
-            $dato = Ruta::where('id', $id)->get();
+            $dato = Ruta::where('id', $id)
+            ->with('Rutapunto')
+            ->get();
         } catch (\Exception $e) {
             return response()->json(['status'=>['error'=>1, 'message'=>'Error en consulta'], 'data'=>null]);
         }        

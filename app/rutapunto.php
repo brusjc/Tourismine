@@ -20,4 +20,13 @@ class Rutapunto extends Model
     public function punto() {
         return $this->belongsTo('App\Punto');
     }
+
+    //Creamos relación con la tabla ciudad
+    public function ciudad() {
+        return $this->hasManyThrough('App\Ciudad', 'App\Ruta', 'id', 'id', 'ruta_id', 'ciudad_id');
+    }
+
+    
+    
+
 }

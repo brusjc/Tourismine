@@ -32,7 +32,7 @@ return [
 'incluirPunto'  => 'incluir punto',
 'punto'         => 'punto',
 'orden'         => 'orden',
-
+'puntonuevoincluido' => "punto de interés incluido en la base de datos",
 
 
 
@@ -121,6 +121,14 @@ return [
 'RutaPuntoNuevo_h1' => "Punto nuevo de la ruta ",
 'RutaPuntoNuevo_descripcion' => "Punto nuevo de la ruta ",
 'RutaPuntoNuevo_keywords' => "Punto nuevo de la ruta ",
+
+
+
+'RutaPuntoMdificar_breadcrumb' => "Modificar punto",
+'RutaPuntoMdificar_title' => "Modificar punto de la ruta ",
+'RutaPuntoMdificar_h1' => "Modificar punto de la ruta ",
+'RutaPuntoMdificar_descripcion' => "Modificar punto de la ruta ",
+'RutaPuntoMdificar_keywords' => "Modificar punto de la ruta ",
 
 
 

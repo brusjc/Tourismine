@@ -1,11 +1,11 @@
 @extends('layouts.frontAdmin.general')
 
 @section('contentheader_title')
-	{{ html_entity_decode(trans('master.RutaPuntoNuevo_title') )}}{{$ruta['nombre']}}
+	{{ html_entity_decode(trans('master.RutaPuntoMdificar_title') )}}{{$punto['ruta']['nombre']}}
 @endsection
 
 @section('contentheader_h1')
-	{{ html_entity_decode(trans('pagRaiz.RutaPuntoNuevo_h1') )}}{{$ruta['nombre']}}
+	{{ html_entity_decode(trans('pagRaiz.RutaPuntoMdificar_h1') )}}{{$punto['ruta']['nombre']}}
 @endsection
 
 @section('breadcrumb1')
@@ -17,11 +17,11 @@
 @endsection
 
 @section('descripcion')
-    {{ html_entity_decode(trans('pagRaiz.RutaPuntoNuevo_descripcion') )}}
+    {{ html_entity_decode(trans('pagRaiz.RutaPuntoMdificar_descripcion') )}}
 @endsection
 
 @section('keywords')
-    {{ html_entity_decode(trans('pagRaiz.RutaPuntoNuevo_keywords') )}}
+    {{ html_entity_decode(trans('pagRaiz.RutaPuntoMdificar_keywords') )}}
 @endsection
 
 @section('main_content')
@@ -46,25 +46,18 @@
     <div class="container">
         <div class="row content h-100 text-justify">
             <div class="col-md-6">
-				<form action="/es/ruta-punto-nuevo2/{{$id}}" method="POST" class="form-horizontal">
+				<form action="/es/ruta-punto-modificar2/{{$id}}" method="POST" class="form-horizontal">
 					{{csrf_field()}}
 					<div class="box-body">
 
                         <input type="hidden" class="form-control" name="id" value="{{$id}}">
                         <input type="hidden" class="form-control" name="ciudad_id" value="{{$puntos[0]['ciudad_id']}}">
+                        <input type="hidden" class="form-control" name="ruta_id" value="{{$punto['ruta_id']}}">
 
 				        <div class="row">
 							<div class="form-group col-md-11">
 								<label for="punto_id" class="control-label">{{ucfirst(trans('master.punto'))}}(*)</label>
-								<select class="form-control select2" name="punto_id" id="punto_id">
-									@foreach($puntos as $punto)
-										@if($punto['id'] == old('punto_id'))
-											<option value="{{$punto['id']}}" selected>{{$punto['nombre']}}</option>
-										@else
-											<option value="{{$punto['id']}}">{{$punto['nombre']}}</option>
-										@endif
-									@endforeach
-								</select>
+                                <input type="text" class="form-control" name="punto_id" placeholder="Enter ..." value="{{$punto['punto']['nombre']}}">
 							</div>
 						</div>
 
@@ -95,19 +88,20 @@
                                 <th style="width: 15px">Orden</th>
                                 <th>Punto</th>
                                 <th style="width: 15px"><i class="fa fa-edit"></i></th>
+                                <th style="width: 15px"><i class="fa fa-trash"></i></th>
                             </tr>
                             @foreach($puntosorden as $key=>$mipunto)
                                 <tr>
                                     @if($key>0 && $puntosorden[$key]['orden']==$puntosorden[$key-1]['orden'])
                                         <td class="text-danger font-weight-bold">{{$mipunto['orden']}}</td>
                                         <td class="text-danger font-weight-bold">{{$mipunto['punto']['nombre']}}</td>
-                                        <td><a href="/es/ruta-punto-modificar/{{$mipunto['id']}}"><i class="fa fa-edit"></i></a></td>
-                                        <td><a href="/es/ruta-punto-borrar1/{{$mipunto['id']}}"><i class="fa fa-trash"></i></a></td>
+                                        <td><i class="fa fa-edit"></i></td>
+                                        <td><i class="fa fa-trash"></i></td>
                                     @else
                                         <td>{{$mipunto['orden']}}</td>
                                         <td>{{$mipunto['punto']['nombre']}}</td>
-                                        <td><a href="/es/ruta-punto-modificar/{{$mipunto['id']}}"><i class="fa fa-edit"></i></a></td>
-                                        <td><a href="/es/ruta-punto-borrar1/{{$mipunto['id']}}"><i class="fa fa-trash"></i></a></td>
+                                        <td><i class="fa fa-edit"></i></td>
+                                        <td><i class="fa fa-trash"></i></td>
                                     @endif
                                 </tr>
                             @endforeach

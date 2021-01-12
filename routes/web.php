@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     //**********
     //* Master *
     //**********
-    Route::get('/es/master', 'PuntoController@masterPuntos')->name('master');
+    Route::get('/es/master/{message?}', 'PuntoController@masterPuntos')->name('master');
     //Route::get('/master', function () { return view('paginas.master.index'); });
     Route::get('/master/puntos', 'PuntoController@PuntosxEstado');
 
@@ -76,6 +76,10 @@ Route::group(['middleware' => 'auth'], function () {
     //Ruta Punto Nuevo
     Route::get('/es/ruta-punto-nuevo/{id}', 'RutapuntoController@rutaPuntoNuevo')->name('rutaPuntoNuevo');
     Route::post('/es/ruta-punto-nuevo2/{id}', 'RutapuntoController@rutaPuntoNuevo2')->name('rutaPuntoNuevo2');
+
+    //Ruta Punto Modificar
+    Route::get('/es/ruta-punto-modificar/{id}', 'RutapuntoController@rutaPuntoModificar')->name('rutaPuntoModificar');
+    Route::post('/es/ruta-punto-modificar2/{id}', 'RutapuntoController@rutaPuntoModificar2')->name('rutaPuntoModificar2');
 
     //Ruta Punto Borrar
     Route::get('/es/ruta-punto-borrar1/{id}', function($id){ return view('paginas.master.rutaPuntoBorrar1')->with('id', $id);});

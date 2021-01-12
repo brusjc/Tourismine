@@ -375,12 +375,17 @@ class PuntoController extends Controller
 //*******
 
     //Master: Tabla con todos los puntos por provincia
-    public function masterPuntos()
+    public function masterPuntos($message=null)
     {
         $puntos=$this->showXProvincia();
         $puntos = @json_decode(json_encode($puntos), true);
         $puntos=$puntos['original'];
-        return view('paginas.master.index', compact('puntos'));
+        if($message)
+        {
+            return view('paginas.master.index', compact('puntos', 'message'));
+        } else {
+            return view('paginas.master.index', compact('puntos'));
+        }
     }
 
     public function puntoNuevo1()
@@ -472,10 +477,28 @@ class PuntoController extends Controller
             $respunto = $this->store($punto);
             $respunto = @json_decode(json_encode($respunto), true);
             //return $respunto;
-            $mipunto=$respunto['original'];
+            if($respunto['original']['status']['error']==0)
+            {
+                $message="Punto de interés incluido en la base de datos";
+                return redirect()->action('PuntoController@masterPuntos', compact('message'));            
+            } else {
+                $errors[] = $respunto['original']['status']['message'];
 
-            //Paso 3: redirigimos a la vista
-            return redirect()->action('PuntoController@masterPuntos');            
+                //A: Obtenemos la tabla de tipod de monumento
+                $tipos = app('App\Http\Controllers\TipoController')->index();
+                $tipos = @json_decode(json_encode($tipos), true);
+                $tipos=$tipos['original'];
+                //return $tipos;
+
+                //B: Obtenemos las ciudades
+                $ciudades = app('App\Http\Controllers\CiudadController')->index();
+                $ciudades = @json_decode(json_encode($ciudades), true);
+                $ciudades=$ciudades['original'];
+                //return $ciudades;
+
+                //C: Vamos al formulario
+                return view('paginas.master.masterPuntoNuevo', compact('tipos', 'ciudades', 'errors'));
+            }
         } else {
             //A: Obtenemos la tabla de tipod de monumento
             $tipos = app('App\Http\Controllers\TipoController')->index();
