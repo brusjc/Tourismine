@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 //Rutas PASSPORT
 
+Route::post('/register', 'PassportAuthController@register');
 Route::get('/logout', 'Api\UserController@logout')->middleware('auth:api');
 Route::post('list', 'pruebaController@list')->middleware('auth:api');
 
@@ -22,7 +23,7 @@ Route::get('clients/puntosXProvincia', 'PuntoController@getPuntosxProvincia');
 //* APP *
 //*******
     Route::post('/login', 'PassportAuthController@login');
-    Route::post('/register', 'PassportAuthController@register');
+    Route::post('/crearUsuario', 'PassportAuthController@register');
 
     Route::group(['middleware' => 'auth:api'], function ()
     {

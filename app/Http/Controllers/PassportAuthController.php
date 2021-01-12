@@ -17,7 +17,7 @@ class PassportAuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password).
+            'password' => bcrypt($request->password),
             'roll_id' => 1
         ]);
        
