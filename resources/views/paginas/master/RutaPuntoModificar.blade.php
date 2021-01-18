@@ -50,14 +50,16 @@
 					{{csrf_field()}}
 					<div class="box-body">
 
-                        <input type="hidden" class="form-control" name="id" value="{{$id}}">
-                        <input type="hidden" class="form-control" name="ciudad_id" value="{{$puntos[0]['ciudad_id']}}">
-                        <input type="hidden" class="form-control" name="ruta_id" value="{{$punto['ruta_id']}}">
+                        <input type="hidden" name="id" value="{{$id}}">
+                        <input type="hidden" name="ciudad_id" value="{{$puntos[0]['ciudad_id']}}">
+                        <input type="hidden" name="ruta_id" value="{{$punto['ruta_id']}}">
+                        <input type="hidden" name="punto_id" value="{{$punto['punto_id']}}">
+                        <input type="hidden" name="orden_old" value="{{$punto['orden']}}">
 
 				        <div class="row">
 							<div class="form-group col-md-11">
-								<label for="punto_id" class="control-label">{{ucfirst(trans('master.punto'))}}(*)</label>
-                                <input type="text" class="form-control" name="punto_id" placeholder="Enter ..." value="{{$punto['punto']['nombre']}}">
+								<label for="puntonombre" class="control-label">{{ucfirst(trans('master.punto'))}}(*)</label>
+                                <input type="text" class="form-control" name="puntonombre" placeholder="Enter ..." value="{{$punto['punto']['nombre']}}">
 							</div>
 						</div>
 
@@ -95,12 +97,13 @@
                                     @if($key>0 && $puntosorden[$key]['orden']==$puntosorden[$key-1]['orden'])
                                         <td class="text-danger font-weight-bold">{{$mipunto['orden']}}</td>
                                         <td class="text-danger font-weight-bold">{{$mipunto['punto']['nombre']}}</td>
+                                        <td><a href="/es/ruta-punto-modificar/{{$mipunto['id']}}"><i class="fa fa-edit"></i></a></td>
                                         <td><i class="fa fa-edit"></i></td>
                                         <td><i class="fa fa-trash"></i></td>
                                     @else
                                         <td>{{$mipunto['orden']}}</td>
                                         <td>{{$mipunto['punto']['nombre']}}</td>
-                                        <td><i class="fa fa-edit"></i></td>
+                                        <td><a href="/es/ruta-punto-modificar/{{$mipunto['id']}}"><i class="fa fa-edit"></i></a></td>
                                         <td><i class="fa fa-trash"></i></td>
                                     @endif
                                 </tr>

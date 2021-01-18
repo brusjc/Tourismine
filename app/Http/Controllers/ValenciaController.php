@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class ValenciaController extends Controller
 {
 
-
 //*******
 //* WEB *
 //*******

@@ -49,7 +49,7 @@
                             <th style="width: 8%">Ciudad</th>
                             <th style="width: 54%">Punto</th>
                             <th style="width: 15%">
-                                <a href="/es/masterPuntoNuevo"><button type="button" class="btn btn-block btn-info">Nuevo punto</button></a>
+                                <a href="/es/PuntoNuevo"><button type="button" class="btn btn-block btn-info">Nuevo punto</button></a>
                             </th>
                             <th style="width: 5%"><i class="fa fa-edit"></i></th>
                             <th style="width: 5%"><i class="fa fa-trash"></i></th>

@@ -57,12 +57,12 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="Nombre" class="control-label">{{trans('master.Nombre')}}(*)</label>
+                                <label for="Nombre" class="control-label">{{ucfirst(trans('master.nombre'))}}(*)</label>
                                 <input type="text" class="form-control" name="nombre" id="Nombre" placeholder="Enter ..."  value="{{ old('nombre') }}">
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="ciudad_id" class="control-label">{{trans('master.Ciudad')}}(*)</label>
+                                <label for="ciudad_id" class="control-label">{{ucfirst(trans('master.ciudad'))}}(*)</label>
                                 <select class="form-control select2" name="ciudad_id" id="ciudad_id">
                                     <option value="" selected></option>
                                     @foreach($ciudades['data'] as $ciudad)
@@ -78,46 +78,46 @@
 
                         <div class="row">
                             <div class="form-group col-md-10">
-                                <label for="direccion" class="control-label">{{trans('master.direccion')}}(*)</label>
+                                <label for="direccion" class="control-label">{{ucfirst(trans('master.direccion'))}}(*)</label>
                                 <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Calle ..." value="{{ old('direccion') }}">
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="cpostal" class="control-label">{{trans('master.cpostal')}}(*)</label>
+                                <label for="cpostal" class="control-label">{{ucfirst(trans('master.cpostal'))}}(*)</label>
                                 <input type="text" class="form-control" name="cpostal" id="cpostal" placeholder="Código postal ..." value="{{ old('cpostal') }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <label for="telefono" class="control-label">{{trans('master.Telefono')}}(*)</label>
+                                <label for="telefono" class="control-label">{{ucfirst(trans('master.telefono'))}}(*)</label>
                                 <input type="text" class="form-control" name="telefono" id="telefono" placeholder="000 000000000 ..." value="{{ old('telefono') }}">
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="web" class="control-label">{{trans('master.Web')}}(*)</label>
+                                <label for="web" class="control-label">{{ucfirst(trans('master.web'))}}(*)</label>
                                 <input type="text" class="form-control" name="web" id="web" placeholder="www ..." value="{{ old('web') }}">
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="latitud" class="control-label">{{trans('master.Latitud')}}(*)</label>
+                                <label for="latitud" class="control-label">{{ucfirst(trans('master.latitud'))}}(*)</label>
                                 <input type="text" class="form-control" name="latitud" id="latitud" placeholder="Enter ..." value="{{ old('latitud') }}">
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="longitud" class="control-label">{{trans('master.Longitud')}}(*)</label>
+                                <label for="longitud" class="control-label">{{ucfirst(trans('master.longitud'))}}(*)</label>
                                 <input type="text" class="form-control" name="longitud" id="longitud" placeholder="Enter ..." value="{{ old('longitud') }}">
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="puntos" class="col-sm-2 control-label">{{trans('master.Puntuacion')}}(*)</label>
+                                <label for="puntos" class="col-sm-2 control-label">{{ucfirst(trans('master.puntuacion'))}}(*)</label>
                                 <input type="text" class="form-control" name="puntos" id="puntos" placeholder="1 a 10 ..." value="{{ old('puntos') }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-2">
-                                <label for="horario_id" class="control-label">{{trans('master.Horario')}}</label>
+                                <label for="horario_id" class="control-label">{{ucfirst(trans('master.horario'))}}</label>
                                 <select class="form-control select2" name="horario_id" id="horario_id" value="{{ old('horario') }}">
                                     <option value="1" selected="selected">Horario 1</option>
                                     <option value="2">Horario 2</option>
@@ -128,8 +128,8 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="tipo_id" class="col-sm-2 control-label">{{trans('master.Tipo')}}(*)</label>
+                            <div class="form-group col-md-2">
+                                <label for="tipo_id" class="col-sm-2 control-label">{{ucfirst(trans('master.tipo'))}}(*)</label>
                                 <select class="form-control select2" name="tipo_id" id="tipo_id">
                                     <option value=""> </option>
                                     @foreach($tipos['data'] as $tipo)
@@ -142,9 +142,17 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-7">
-                                <label for="etiquetas" class="col-sm-2 control-label">{{trans('master.Etiquetas')}}(*)</label>
+                            <div class="form-group col-md-6">
+                                <label for="etiquetas" class="col-sm-2 control-label">{{ucfirst(trans('master.etiquetas'))}}(*)</label>
                                 <input type="text" class="form-control" name="etiquetas" id="etiquetas" placeholder="Enter ..." value="{{ old('etiquetas') }}">
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label for="visible" class="col-sm-2 control-label">{{ucfirst(trans('master.visible'))}}(*)</label>
+                                <select class="form-control select2" name="visible">
+                                    <option value="0" selected>No visible</option>
+                                    <option value="1">Visible</option>
+                                </select>
                             </div>
                         </div>
 
@@ -152,7 +160,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="descripcion" class="control-label">{{trans('master.Descripcion')}}(*)</label>
+                                        <label for="descripcion" class="control-label">{{ucfirst(trans('master.descripcion'))}}(*)</label>
                                     </div>
                                     <div class="col-md-12">
                                         <textarea  class="form-control" name="descripcion" id="descripcion" placeholder="Breve descripción del punto ..." value="{{ old('descripcion') }}" rows="2"></textarea>
@@ -163,7 +171,7 @@
 
 						<div class="box-footer">
 							<a href="/es/master" class="btn btn-info pull-left">Volver</a>
-							<button type="submit" class="btn btn-info pull-right">{{trans('master.Guardar')}}</button>
+							<button type="submit" class="btn btn-info pull-right">{{ucfirst(trans('master.guardar'))}}</button>
 						</div>
 					</div>
 				</form>

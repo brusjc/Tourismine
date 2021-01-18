@@ -6,8 +6,6 @@
 
 @section('breadcrumb0')<a href="/{{session('lang')}}/">{{ trans('message.home') }}</a>@endsection
 
-@section('breadcrumb1')Ciudades@endsection
-
 @section('descripcion'){{ trans('ciudades.Ciudades_descripcion') }}@endsection
 
 @section('keywords'){{ trans('ciudades.Ciudades_keywords') }}@endsection

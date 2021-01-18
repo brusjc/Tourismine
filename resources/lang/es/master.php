@@ -4,28 +4,28 @@ return [
     /*Traducciones de los menús y barras laterales*/
 
 
-'Nombre'		=> 'Nombre',
-'Provincia'     => 'Provincia',
-'Ciudad'        => 'Ciudad',
-'Descripcion'	=> 'Descripcion',
-'Leyenda'		=> 'Leyenda',
-'Referencia'	=> 'Referencia',
-'Telefono'		=> 'Teléfono',
-'Web'			=> 'Web',
-'Longitud'		=> 'Longitud',
-'Latitud'		=> 'Latitud',
-'Coste'			=> 'Coste',
-'Horario'		=> 'Horario',
-'Tipo'			=> 'Tipo',
-'Puntos'        => 'Puntos',
-'Puntuacion'    => 'Puntuación',
-'Siglos'		=> 'Siglos',
-'Etiquetas'		=> 'Etiquetas',
-'Curiosidades'	=> 'Curiosidades',
-'Guardar'		=> 'Guardar',
+'nombre'		=> 'nombre',
+'provincia'     => 'provincia',
+'ciudad'        => 'ciudad',
+'descripcion'	=> 'descripcion',
+'leyenda'		=> 'leyenda',
+'referencia'	=> 'referencia',
+'telefono'		=> 'teléfono',
+'web'			=> 'web',
+'longitud'		=> 'longitud',
+'latitud'		=> 'latitud',
+'coste'			=> 'coste',
+'horario'		=> 'horario',
+'tipo'          => 'tipo',
+'puntos'        => 'puntos',
+'puntuacion'    => 'puntuación',
+'siglos'		=> 'siglos',
+'etiquetas'		=> 'etiquetas',
+'curiosidades'	=> 'curiosidades',
+'guardar'		=> 'guardar',
 'actualizar'    => 'actualizar',
 'volver'        => 'volver',
-'Modificar'     => 'Modificar',
+'modificar'     => 'modificar',
 'direccion'     => 'dirección',
 'cpostal'       => 'código postal',
 'nuevaRuta'     => 'nueva Ruta',
@@ -33,6 +33,11 @@ return [
 'punto'         => 'punto',
 'orden'         => 'orden',
 'puntonuevoincluido' => "punto de interés incluido en la base de datos",
+'nombre'        => 'nombre',
+'dias'          => 'días',
+'visible'       => 'visible',
+'textos'        => 'textos',
+'textoNuevo'    => 'Texto nuevo',
 
 
 
@@ -102,6 +107,33 @@ return [
 'masterRutas_h1' => "Rutas de la ciudad de ",
 'masterRutas_descripcion' => "Rutas de la ciudad de ",
 'masterRutas_keywords' => "Rutas de la ciudad de ",
+
+
+
+'rutaNuevo_breadcrumb' => "Ruta nueva",
+'rutaNuevo_title' => "Ruta nueva",
+'rutaNuevo_h1' => "Ruta nueva de la ciudad de ",
+'rutaNuevo_descripcion' => "Ruta nueva",
+'rutaNuevo_keywords' => "Ruta nueva",
+
+
+
+'RutaModificar_breadcrumb' => "Modificar ruta",
+'RutaModificar_title' => "Modificar ruta ",
+'RutaModificar_h1' => "Modificar ruta ",
+'RutaModificar_descripcion' => "Modificar ruta ",
+'RutaModificar_keywords' => "Modificar ruta ",
+
+
+
+'RutaBorrar_breadcrumb' => "Borrar ruta",
+'RutaBorrar_title' => "Borrar ruta de la ciudad de ",
+'RutaBorrar_h1' => "Borrar ruta de la ciudad de ",
+'RutaBorrar_descripcion' => "Borrar ruta de la ciudad de ",
+'RutaBorrar_keywords' => "Borrar ruta de la ciudad de ",
+
+'RutaBorrar_texto1' => "Antes de borrar definitivamente la ruta seleccionada de la ciudad te rogamos prestes atención a lo que vas a borrar.",
+'RutaBorrar_texto2' => "Por favor, confirma el borrado de la ruta.",
 
 
 

@@ -28,6 +28,7 @@ class CreatePuntosTable extends Migration
             $table->bigInteger('tipo_id');
             $table->double('puntos');
             $table->longtext('etiquetas');
+            $table->integer('visible');
             $table->timestamps();
         });
     }

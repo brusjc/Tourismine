@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/master/puntos', 'PuntoController@PuntosxEstado');
 
     //Nuevo punto 
-    Route::get('/es/masterPuntoNuevo', 'PuntoController@puntoNuevo1')->name('masterPuntoNuevo1');
+    Route::get('/es/PuntoNuevo', 'PuntoController@puntoNuevo1')->name('masterPuntoNuevo1');
     Route::post('/es/masterPuntoNuevo2', 'PuntoController@puntoNuevo2')->name('masterPuntoNuevo2');
 
     //Modificar punto 
@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/es/masterPuntoModificar2/{id}', 'PuntoController@puntoModificar2');
 
     //Borrar punto
-    Route::get('/es/masterPuntoBorrar1/{id}', function($id){ return view('paginas.master.masterPuntoBorrar1')->with('id', $id);});
+    Route::get('/es/PuntoBorrar1/{id}', function($id){ return view('paginas.master.masterPuntoBorrar1')->with('id', $id);});
     Route::get('/es/masterPuntoBorrar2/{id}', 'PuntoController@puntoBorrar2')->name('masterPuntoBorrar2');
 
     //Borrar texto
@@ -73,9 +73,21 @@ Route::group(['middleware' => 'auth'], function () {
     //Rutas
     Route::get('/es/rutas/{id}', 'RutaController@rutasXCiudad')->name('rutasXCiudad');
 
+    //Ruta Nuevo
+    Route::get('/es/ruta-nuevo/{errors?}', 'RutaController@rutaNuevo')->name('rutaNuevo');
+    Route::post('/es/ruta-nuevo2', 'RutaController@rutaNuevo2')->name('rutaNuevo2');
+
+    //Ruta Modificar
+    Route::get('/es/ruta-modificar/{id}', 'RutaController@rutaModificar')->name('rutaModificar');
+    Route::post('/es/ruta-modificar2/{id}', 'RutaController@rutaModificar2')->name('rutaModificar2');
+
+    //Ruta Borrar
+    Route::get('/es/ruta-borrar1/{id}', 'RutaController@rutaBorrar1')->name('rutaBorrar1');
+    Route::get('/es/ruta-borrar2/{id}', 'RutaController@rutaBorrar2')->name('rutaBorrar2');
+
     //Ruta Punto Nuevo
-    Route::get('/es/ruta-punto-nuevo/{id}', 'RutapuntoController@rutaPuntoNuevo')->name('rutaPuntoNuevo');
-    Route::post('/es/ruta-punto-nuevo2/{id}', 'RutapuntoController@rutaPuntoNuevo2')->name('rutaPuntoNuevo2');
+    Route::get('/es/ruta-punto-nuevo/{id}', 'RutaPuntoController@rutaPuntoNuevo')->name('rutaPuntoNuevo');
+    Route::post('/es/ruta-punto-nuevo2/{id}', 'RutaPuntoController@rutaPuntoNuevo2')->name('rutaPuntoNuevo2');
 
     //Ruta Punto Modificar
     Route::get('/es/ruta-punto-modificar/{id}', 'RutapuntoController@rutaPuntoModificar')->name('rutaPuntoModificar');

@@ -92,7 +92,6 @@ class TextoController extends Controller
             $errors[]="Error al obtener datos del punto del texto";
         }
 
-
         if(count($errors)>0) {
             return response()->json(['status'=>['error'=>2, 'message'=>'Error en datos iniciales'], 'data'=>null, 'errors'=>$errors]);
         }
@@ -167,6 +166,33 @@ class TextoController extends Controller
             $dato = Texto::where('punto_id', $punto)
                 ->with('Textosiglo')
                 ->orderBy('id', 'asc')
+                ->get();
+        } catch (\Exception $e) {
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+        }
+
+        if(count($dato)==0)
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
+        } else {
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
+        } 
+    }
+
+    public function showXPuntoOrden($punto) 
+    {
+        //Paso 1: sanetizamos las variables
+        $punto = (int)$punto;
+        if ($punto==0)
+        {
+            return response()->json(['status'=>['error'=>1, 'message'=>"Los campos introducidos no son correctos"],'punto_interes'=>null]);
+        }
+
+        try
+        {
+            $dato = Texto::where('punto_id', $punto)
+                ->with('Textosiglo')
+                ->orderBy('orden', 'asc')
                 ->get();
         } catch (\Exception $e) {
             return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);

@@ -19,7 +19,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="/{{ session('lang') }}/" class="nav-link">
+          <a href="/es/" class="nav-link">
             <i class="nav-icon far fa-image"></i>
             <p>{{ trans('message.home') }}</p>
           </a>
@@ -37,7 +37,7 @@
         @endif
 
         <li class="nav-item">
-          <a href="/{{ session('lang') }}/ciudades" class="nav-link">
+          <a href="/es/ciudades" class="nav-link">
             <i class="nav-icon far fa-image"></i>
             <p>{{ trans('pagRaiz.ciudades') }}</p>
           </a>

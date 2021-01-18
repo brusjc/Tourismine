@@ -30,7 +30,7 @@
                         <th style="width: 6%">Orden</th>
                         <th style="width: 61%">Puntos</th>
                         <th style="width: 13%">
-                            <a href="/es/masterRutaNueva"><button type="button" class="btn btn-block btn-info">{{ ucfirst(trans('master.nuevaRuta')) }}</button></a>
+                            <a href="/es/ruta-nuevo"><button type="button" class="btn btn-block btn-info">{{ ucfirst(trans('master.nuevaRuta')) }}</button></a>
                         </th>
                         <th style="width: 5%"><i class="fa fa-edit"></th>
                         <th style="width: 5%"><i class="fa fa-trash"></th>
@@ -42,6 +42,8 @@
                                 <td>
                                     <a href="/es/ruta-punto-nuevo/{{ $ruta['id'] }}"><button type="button" class="btn btn-block btn-info">{{ ucfirst(trans('master.incluirPunto')) }}</button></a>
                                 </td>
+                                <td><a href="/es/ruta-modificar/{{$ruta['id']}}"><i class="fa fa-edit"></i></a></td>
+                                <td><a href="/es/ruta-borrar1/{{ $ruta['id'] }}"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @if(isset($ruta['rutapunto']))
                                 @foreach($ruta['rutapunto'] as $key2=>$punto)
@@ -49,7 +51,7 @@
                                         <td></td>
                                         <td class="center">{{$punto['orden']}}</td>
                                         <td colspan="2">{{$punto['datospunto']['nombre']}}</td>
-                                        <td></td>
+                                        <td><a href="/es/ruta-punto-modificar/{{$punto['id']}}"><i class="fa fa-edit"></i></a></td>
                                         <td><a href="/es/ruta-punto-borrar1/{{$punto['id']}}"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 @endforeach

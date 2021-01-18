@@ -40,40 +40,59 @@ class PuntoController extends Controller
     
     public function store($punto)
     {
-        $punto['telefono'] = str_replace(' ', '', $punto['telefono']);
-        if(
-            $punto['nombre']!=strip_tags($punto['nombre']) ||
-            $punto['ciudad_id'] != (int)$punto['ciudad_id'] ||
-            $punto['direccion']!=strip_tags($punto['direccion']) ||
-            $punto['cpostal'] != (int)$punto['cpostal'] ||
-            $punto['telefono'] != (int)$punto['telefono'] ||
-            $punto['longitud'] != (double)$punto['longitud'] ||
-            $punto['latitud'] != (double)$punto['latitud'] ||
-            $punto['horario_id'] != (int)$punto['horario_id'] ||
-            $punto['tipo_id'] != (int)$punto['tipo_id'] ||
-            $punto['puntos'] != (int)$punto['puntos'] ||
-            $punto['descripcion']!=strip_tags($punto['descripcion']) ||
-            $punto['etiquetas']!=strip_tags($punto['etiquetas'])
-        )
-        {
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>null]);
+        if($punto){
+            if($punto['nombre']!=strip_tags($punto['nombre']) || $punto['nombre'] == "" )
+            {
+                $errors="El nombre del punto no es correcto";
+            }
+            if((int)$punto['ciudad_id'] == 0 || $punto['ciudad_id']!=(int)$punto['ciudad_id'])
+            {
+                $errors="El valor de ciudad no es correcto";
+            }
+            if($punto['direccion']!=strip_tags($punto['direccion']) || $punto['direccion'] == "" )
+            {
+                $errors="La dirección del punto no es correcta";
+            }
+            if((int)$punto['cpostal'] == 0 || $punto['cpostal']!=(int)$punto['cpostal'])
+            {
+                $errors="El código postal no es correcto";
+            }
+            $punto['telefono'] = str_replace(' ', '', $punto['telefono']);
+            if((int)$punto['telefono'] == 0 || $punto['telefono']!=(int)$punto['telefono'])
+            {
+                $errors="El teléfono no es correcto";
+            }
+            if((double)$punto['latitud'] == 0 || $punto['latitud']!=(double)$punto['latitud'])
+            {
+                $errors="La latitud no es correcta";
+            }
+            if((double)$punto['longitud'] == 0 || $punto['longitud']!=(double)$punto['longitud'])
+            {
+                $errors="La longitud no es correcta";
+            }
+            if((int)$punto['horario_id'] == 0 || $punto['horario_id']!=(int)$punto['horario_id'])
+            {
+                $errors="El valor del horario no es correcto";
+            }
+            if((int)$punto['tipo_id'] == 0 || $punto['tipo_id']!=(int)$punto['tipo_id'])
+            {
+                $errors="El valor del tipo no es correcto";
+            }
+            if((int)$punto['puntos'] == 0 || $punto['puntos']!=(int)$punto['puntos'])
+            {
+                $errors="Los puntos no son correctos";
+            }
+            if($punto['descripcion']!=strip_tags($punto['descripcion']) || $punto['descripcion'] == "" )
+            {
+                $errors="La descripción del punto no es correcta";
+            }
+            if($punto['etiquetas']!=strip_tags($punto['etiquetas']) || $punto['etiquetas'] == "" )
+            {
+                $errors="Las etiquetas del punto no son correctas";
+            }
         }
-        
-        if (
-            $punto['nombre'] == "" || 
-            $punto['ciudad_id'] == "" ||
-            $punto['direccion'] == "" ||
-            $punto['cpostal'] == "" ||
-            $punto['longitud'] == "" ||
-            $punto['latitud'] == "" ||
-            $punto['horario_id'] == "" ||
-            $punto['tipo_id'] == "" ||
-            $punto['puntos'] == "" ||
-            $punto['descripcion'] == "" ||
-            $punto['etiquetas'] == ""
-        )
-        {
-            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales2'], 'data'=>null]);
+        if(isset($errors)){
+            return response()->json(['status' =>['error'=>1, 'message'=>'Error en datos iniciales1'], 'data'=>$errors]);
         }
 
         //Paso 2: Obtenemos el último registro creado
@@ -94,6 +113,7 @@ class PuntoController extends Controller
             $mipunto->tipo_id         = $punto["tipo_id"];
             $mipunto->puntos          = $punto["puntos"];
             $mipunto->etiquetas       = $punto["etiquetas"];
+            $mipunto->visible         = 0;
             //return $mipunto;
         try{
             $mipunto->save();
@@ -120,60 +140,51 @@ class PuntoController extends Controller
         if((int)$punto['id']==0 || (int)$punto['id']!=(int)$id){
             $errors[]="Error al obtener datos del id del registro";
         }        
-
         if($punto['nombre']!=strip_tags($punto['nombre']) || strlen($punto['nombre'])==0) {
             $errors[]="Error al obtener datos del nombre";
         }        
-
         if((int)$punto['ciudad_id']==0) {
             $errors[]="Error al obtener datos de la ciudad";
         }
-
         if($punto['direccion']!=strip_tags($punto['direccion']) || strlen($punto['direccion'])==0) {
             $errors[]="Error al obtener datos de la dirección";
         }        
-
         if((int)$punto['cpostal']==0) {
             $errors[]="Error al obtener datos del código postal";
         }
-
         $punto['telefono'] = str_replace(' ', '', $punto['telefono']);
         if(strlen($punto['telefono'])==0){$punto['telefono'] = 0;}
         if($punto['telefono']!=(int)$punto['telefono']) {
             $errors[]="Error al obtener datos del teléfono";
         }
-
         if($punto['web']!=strip_tags($punto['web'])) {
             $errors[]="Error al obtener datos de la web";
         }        
-
         if($punto['latitud']!=(double)$punto['latitud']) {
             $errors[]="Error al obtener datos de la latitud del geoposicionamiento";
         }
-
         if($punto['longitud']!=(double)$punto['longitud']) {
             $errors[]="Error al obtener datos de la longitud del geoposicionamiento";
         }
-
         if((int)$punto['puntos']==0) {
             $errors[]="Error al obtener datos de la puntuación";
         }
-
         if((int)$punto['horario_id']==0) {
             $errors[]="Error al obtener datos del horario de apertura";
         }
-
         if((int)$punto['tipo_id']==0) {
             $errors[]="Error al obtener datos del tipo de punto";
         }
-
         if($punto['etiquetas']!=strip_tags($punto['etiquetas']) || strlen($punto['etiquetas'])==0) {
             $errors[]="Error al obtener datos de las etiquetas";
         }        
-
         if($punto['descripcion']!=strip_tags($punto['descripcion']) || strlen($punto['descripcion'])==0) {
             $errors[]="Error al obtener datos de la descripción";
         }        
+        if((int)$punto['visible']==0 || (int)$punto['visible']==1) {
+        } else {
+            $errors[]="Error al obtener datos del tipo de punto";
+        }
 
         if(count($errors)>0) {
             return response()->json(['status'=>['error'=>2, 'message'=>'Error en datos iniciales'], 'data'=>null, 'errors'=>$errors]);
@@ -195,6 +206,7 @@ class PuntoController extends Controller
             $modpunto->puntos       = $punto['puntos'];
             $modpunto->etiquetas    = $punto['etiquetas'];
             $modpunto->descripcion  = $punto['descripcion'];
+            $modpunto->visible      = $punto['visible'];
         try {
             $modpunto->save();
         } catch (\Exception $e) {
@@ -243,9 +255,38 @@ class PuntoController extends Controller
         try
         {
             $dato = Punto::where('ciudad_id', $id)
+                ->where('visible', 1)
                 ->with('Ciudad')
                 ->with('Provincia')
                 ->orderBy('nombre', 'asc')
+                ->get();
+        } catch (\Exception $e) {
+            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+        }
+
+        if(count($dato)==0)
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>"No hay datos"], 'data'=>null]);
+        } else {
+            return response()->json(['status'=>['error'=>0, 'message'=>""], 'data'=>$dato]);
+        } 
+    }
+
+    public function showXCiudadOrden($id) 
+    {
+        //Paso 1: Sanitizamos las variables
+        $id=(int)$id;
+        if($id==0) {
+            return response()->json(['status'=>['error'=>3, 'message'=>'Error en datos iniciales'], 'data'=>null]);
+        }
+
+        //Paso 2: realizamos la consulta
+        try
+        {
+            $dato = Punto::where('ciudad_id', $id)
+                ->with('Ciudad')
+                ->with('Provincia')
+                ->orderBy('orden', 'asc')
                 ->get();
         } catch (\Exception $e) {
             return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
@@ -369,6 +410,43 @@ class PuntoController extends Controller
     }
 
 
+    public function ordenTextos($textoreq, $orden)
+    {
+        //$orden es la matriz que indica el orden de cada elemento en el array
+
+        //return $textoreq;
+        return $orden;
+        //Función que reordena los puntos de una ruta
+
+        //1.- Solicitamos los puntos de la ruta ordenados por campo orden
+        $rutapuntos = $this->showXCiudadOrden($textoreq['ruta_id']);
+        $rutapuntos = @json_decode(json_encode($rutapuntos), true);
+        $rutapuntos = $rutapuntos['original']['data'];
+        //return $rutapuntos;
+
+
+        //1.- Creamos la patriz de orden de puntos
+        foreach($rutapuntos as $key=>$rutapunto)
+        {
+            $ordenes[]=$rutapunto['id'];
+        }
+        //return $ordenes;     
+
+        //Borramos el orden anterior
+        $ordenes = array_diff($ordenes, array($textoreq['id']));
+        //return $ordenes;
+        array_splice($ordenes , (int)$textoreq['orden']-1, 0, (int)$textoreq['id']);
+        //return $ordenes;
+
+        foreach($rutapuntos as $key=>$rutapunto)
+        {
+            $pos = array_search($rutapunto['id'], $ordenes);
+            $rutapuntos[$key]['orden']=$pos+1;
+        }
+        return $rutapuntos;
+    }
+
+
 
 //*******
 //* WEB *
@@ -403,7 +481,7 @@ class PuntoController extends Controller
         //return $ciudades;
 
         //Paso 3: Vamos al formulario
-        return view('paginas.master.masterPuntoNuevo', compact('tipos', 'ciudades'));
+        return view('paginas.master.PuntoNuevo', compact('tipos', 'ciudades'));
     }
 
     public function puntoNuevo2(Request $request)
@@ -521,7 +599,6 @@ class PuntoController extends Controller
 
     public function puntoModificar1($id)
     {
-        //return 'Estamos aqui 1';
         //Paso 1: Sanitizamos las variables
         $id=(int)$id;
         if($id==0) {
@@ -547,7 +624,7 @@ class PuntoController extends Controller
         //return $punto;
 
         //Paso 5: Obtenemos los textos del punto de interés
-        $textos=app('App\Http\Controllers\TextoController')->showXPunto($punto['id']);
+        $textos=app('App\Http\Controllers\TextoController')->showXPuntoOrden($punto['id']);
         $textos = @json_decode(json_encode($textos), true);
         //return $textos;
         $textos=$textos['original']['data'];
@@ -595,7 +672,7 @@ class PuntoController extends Controller
         //return $punto;
 
         //Obtenemos los datos del punto de interés
-        return view('paginas.master.masterPuntoModificar', compact('punto', 'tipos','ciudades'));
+        return view('paginas.master.PuntoModificar', compact('punto', 'tipos','ciudades'));
     }
 
     public function puntoModificar2(Request $request, $id)
@@ -662,6 +739,11 @@ class PuntoController extends Controller
             {
                 $errors[]="Error al obtener datos de las descripción del registro";
             }
+            if((int)$punto['visible']==0 || (int)$punto['visible']==1)
+            {
+            }else{
+                $errors[]="Error al obtener datos del horario del registro";
+            }
 
             //Revisamos los textos
             if(isset($punto['textos']))
@@ -727,8 +809,9 @@ class PuntoController extends Controller
         if(count($errors)==0)
         {
 
-            //Actualizamos los la tabla punto
+            //Actualizamos los datos de la tabla punto
             $respunto = $this->update($punto, $id);
+            //return $respunto;
             $respunto = @json_decode(json_encode($respunto), true);
             //return $respunto;
             if($respunto['original']['status']['error']!=0)
@@ -764,113 +847,92 @@ class PuntoController extends Controller
                 }
                 $punto['textos'][0]=$punto['textonuevo'];
             }
-            //return $punto['textonuevo'];
             //return $punto;
 
-            //Actualizamos la tabla textos
+            //ordenamos los textos (cambiados) por el campo orden 
             if(isset($punto['textos']))
             {
+                //Obtenemos los textos ordenados por orden
+                $textosBDOrden = app('App\Http\Controllers\TextoController')->showXPuntoOrden($id);
+                $textosBDOrden = @json_decode(json_encode($textosBDOrden), true);
+                $textosBDOrden = $textosBDOrden['original']['data'];
+                //return $textosBDOrden;
+
+                //Creamos la matriz de textos ordenados por el campo orden
+                for($x=1; $x<=count($punto['textos']); $x++)
+                {
+                    foreach($punto['textos'] as $key=>$mitexto)
+                    {
+                        if($mitexto['orden']==$x)
+                        {
+                            $ordentextos[]=$mitexto['id'];
+                        }
+                    }
+                }
+                //return $ordentextos;
+
+                //Actualizamos cada uno de los textos
+                foreach($ordentextos as $key1=>$ordentexto)
+                {
+                    //Buscamos el texto que coincide con el id
+                    foreach($textosBDOrden as $key2=>$textoBD)
+                    {
+                        if((int)$textoBD['id']==$ordentexto)
+                        {
+                            //Actualizamos el texto
+                            $textoBD['orden'] = $key1+1;
+                            $restexto = app('App\Http\Controllers\TextoController')->update($textoBD, $textoBD['id']);
+                            $restexto = @json_decode(json_encode($restexto), true);
+                            //return $restexto;
+                            if($restexto['original']['status']['error']!=0)
+                            {
+                                $errors[]="Error interno al guardar el texto";
+                            }
+                        }
+                    }
+                }                
+                //return 'Hemos actualizado todos los textos';
+
+                //Actualizamos los siglos de todos los puntos
                 foreach($punto['textos'] as $key1=>$texto)
                 {
-                    $restexto = app('App\Http\Controllers\TextoController')->update($texto, $texto['id']);
-                    //return $restexto;
-                    $restexto = @json_decode(json_encode($restexto), true);
-                    //return $restexto;
-                    if($restexto['original']['status']['error']!=0)
-                    {
-                        $errors[]="Error interno al guardar el texto";
-                    }
-
+                    //return $texto;
                     //Actualizamos la tabla textosiglos
                     $siglosBD = app('App\Http\Controllers\TextoController')->showXId($texto['id']);
                     $siglosBD = @json_decode(json_encode($siglosBD), true);
                     $siglosBD = $siglosBD['original']['data']['textosiglo'];
                     //return $siglosBD;
 
-                    $sigloForm=$punto['textos'][$key1]['siglosmarcados'];
-                    if(isset($punto['textos'][$key1]['siglosmarcados']))
+                    //Creamos la matriz de textos ordenados por el campo orden
+                    foreach($siglosBD as $key=>$misiglo)
                     {
-                        //A.- Guardamos los siglos no incluidos en la BD
-                        foreach($punto['textos'][$key1]['siglosmarcados'] as $key2=>$sigloForm)
-                        {
-                            $encontrado=0;
-                            foreach ($siglosBD as $sigloBD)
-                            {
-                                if($sigloBD['siglo']==$key2)
-                                {
-                                    $encontrado=1;  //está guardado el siglo
-                                }
-                            }
-                            if($encontrado!=1)
-                            {
-                                //incluimos el siglo en la BD
-                                $estesiglo['texto_id']=$punto['textos'][$key1]['id'];
-                                $estesiglo['siglo']=$key2;
-                                //return $estesiglo;
-                                $ressiglonuevo = app('App\Http\Controllers\TextosigloController')->store($estesiglo);
-                            }
-                        }
+                        $BDsiglos[$misiglo['siglo']]=1;
+                    }
+                    //return $BDsiglos;
 
-                        //B.- Recorremos los siglos ya grabados para ver si están ahora seleccionados
-                        foreach ($siglosBD as $sigloBD)
+                    if(count($siglosBD)>0)
+                    {
+                        for($x=1; $x<=21; $x++)
                         {
-                            $encontrado=0;
-                            foreach($punto['textos'][$key1]['siglosmarcados'] as $key2=>$sigloForm)
+                            if(isset($texto['siglosmarcados'][$x]))
                             {
-                                if($sigloBD['siglo']==$key2)
+                                if(!isset($BDsiglos[$x]))
                                 {
-                                    $encontrado=1;
+                                    //incluimos el siglo en la BD
+                                    $estesiglo['texto_id']=$texto['id'];
+                                    $estesiglo['siglo']=$x;
+                                    //return $estesiglo;
+                                    $ressiglonuevo = app('App\Http\Controllers\TextosigloController')->store($estesiglo);
                                 }
                             }
-                            if($encontrado!=1)
-                            {
-                                //El siglo estaba grabado y ya no lo está --> Lo borramos
-                                $sigloBD = app('App\Http\Controllers\TextosigloController')->destroy($sigloBD['id']);
-                                $sigloBD = @json_decode(json_encode($sigloBD), true);
-                                //return $sigloBD;
-                                if($sigloBD['original']['status']['error']!=0)
-                                {
-                                    $errors[]='Error al eliminarl el siglo del texto de orden '.$punto['textos'][$key1]['orden'];
-                                }
-                            }
-                        }
-
-                        //C.- Obtenemos nuevamente los puntos de la BD
-                        $siglosBD = app('App\Http\Controllers\TextoController')->showXId($texto['id']);
-                        $siglosBD = @json_decode(json_encode($siglosBD), true);
-                        $siglosBD = $siglosBD['original']['data']['textosiglo'];
-                        //return $siglosBD;
-
-                        //return $punto['textos'][$key1];
-                        if(isset($punto['textos'][$key1]['siglosmarcados']))
-                        {
-                            $sigloForm=array_fill(0, 19, false);
-                            for($x=0; $x<=19; $x++)
-                            {
-                                $encontrado=0;
-                                foreach ($siglosBD as $sigloBD)
-                                {
-                                    if($sigloBD['siglo']==$x)
-                                    {
-                                        $encontrado=1;
-                                    }
-                                }
-                                if($encontrado==1)
-                                {
-                                    $sigloForm[$x]=true;
-                                }
-                            }
-                            //return $sigloForm;
-                            $punto['textos'][$key1]['siglosmarcados']=$sigloForm;
-                            //return $punto['textos'][$key1];
                         }
                     }
                 }
             }
             //return $punto;
-
             //Comprobamos que no haya 2 textos con el mismo orden
-            if(count($punto['textos'])>1)
+            if(isset($punto['textos']))
+            //if(count($punto['textos'])>1)
             {
                 $resorden = app('App\Http\Controllers\TextoController')->showOrden($punto['id']);
                 $resorden = @json_decode(json_encode($resorden), true);
@@ -881,7 +943,8 @@ class PuntoController extends Controller
                 $resorden = $resorden[0];
                 //return $resorden;
                 $resorden=array_values(array_diff_assoc($resorden, array_unique($resorden)));
-                if(count($resorden)>0) {
+                if(count($resorden)>0) 
+                {
                     $errors[] = "Hay varios textos con el mismo orden";
                 }
             }
@@ -889,23 +952,7 @@ class PuntoController extends Controller
         //return $punto;
 
         //Paso 3: Devolvemos a masterPuntoModificar
-
-        //Obtenemos la tabla de tipod de monumento
-        $tipos = app('App\Http\Controllers\TipoController')->index();
-        $tipos = @json_decode(json_encode($tipos), true);
-        $tipos=$tipos['original'];
-        //return $tipos;
-
-        //Obtenemos las ciudades
-        $ciudades = app('App\Http\Controllers\CiudadController')->index();
-        $ciudades = @json_decode(json_encode($ciudades), true);
-        $ciudades=$ciudades['original'];
-        //return $ciudades;
-
-        $punto['errors']= $errors;
-        //return $punto;
-        //return $punto['textos'];
-        return view('paginas.master.masterPuntoModificar', compact('punto', 'tipos','ciudades'));
+        return redirect()->action('PuntoController@puntoModificar1', compact('id'));
     }
 
     public function puntoBorrar2($id)

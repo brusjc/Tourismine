@@ -52,6 +52,54 @@ class RutapuntoController extends Controller
         } 
     }
 
+    public function update($punto, $id)
+    {
+        //return $punto;
+        //Paso 1: Comprobamos las variables
+        if($id!=(int)$id)
+        {
+            $errors[]="Error al obtener datos del id del registro";
+        }
+        if((int)$punto['id']==0 || (int)$punto['id']!=(int)$id)
+        {
+            $errors[]="Error al obtener datos del id del registro";
+        }
+        if((int)$punto['ruta_id']==0 || (int)$punto['ruta_id']!=$punto['ruta_id'])
+        {
+            $errors[]="Error al obtener datos de la ruta";
+        }
+        if((int)$punto['punto_id']==0 || (int)$punto['punto_id']!=$punto['punto_id'])
+        {
+            $errors[]="Error al obtener datos de la ruta";
+        }
+        if((int)$punto['orden']==0 || (int)$punto['orden']!=$punto['orden'])
+        {
+            $errors[]="Error al obtener datos de la ruta";
+        }
+        //return $punto;
+
+        //Paso 2: Creamos el registro en la tabla resultados
+        $modpunto = Rutapunto::find($punto['id']);
+        $modpunto->ruta_id  = $punto['ruta_id'];
+        $modpunto->punto_id = $punto['punto_id'];
+        $modpunto->orden    = $punto['orden'];
+        //return $modpunto;
+
+        try {
+            $modpunto->save();
+        } catch (\Exception $e) {
+            return response()->json(['status'=>['error'=>1, 'message'=>'Error en consulta'], 'data'=>null]);
+        }
+
+        //Paso 3: Retornamos el resultado
+        if(!$modpunto)
+        {
+            return response()->json(['status'=>['error'=>2, 'message'=>'No hay datos'], 'data'=>null]);
+        } else {
+            return response()->json(['status'=>['error'=>0, 'message'=>''], 'data'=>$modpunto]);
+        }
+    }
+
     public function showXRutaOrden($id) 
     {
         //Paso 1: sanetizamos las variables
@@ -134,60 +182,38 @@ class RutapuntoController extends Controller
         } 
     }
 
-    public function ordenPuntos($puntoreq, $rutapuntos)
+    public function ordenPuntos($puntoreq)
     {
         //return $puntoreq;
         //return $rutapuntos;
         //Función que reordena los puntos de una ruta
 
+        //1.- Solicitamos los puntos de la ruta ordenados por campo orden
+        $rutapuntos = $this->showXRutaOrden($puntoreq['ruta_id']);
+        $rutapuntos = @json_decode(json_encode($rutapuntos), true);
+        $rutapuntos = $rutapuntos['original']['data'];
+        //return $rutapuntos;
+
+
         //1.- Creamos la patriz de orden de puntos
         foreach($rutapuntos as $key=>$rutapunto)
         {
-            $orden[]=$rutapunto['id'];
+            $ordenes[]=$rutapunto['id'];
         }
-        return $orden;     
+        //return $ordenes;     
 
-        //2.- Comprobamos si hay 
-        if((int)$puntoreq['orden']>array_search($puntoreq['id'], $orden))
+        //Borramos el orden anterior
+        $ordenes = array_diff($ordenes, array($puntoreq['id']));
+        //return $ordenes;
+        array_splice($ordenes , (int)$puntoreq['orden']-1, 0, (int)$puntoreq['id']);
+        //return $ordenes;
+
+        foreach($rutapuntos as $key=>$rutapunto)
         {
-
-
-
-        } else if((int)$puntoreq['orden']>array_search($puntoreq['id'], $orden))
-        {
-
+            $pos = array_search($rutapunto['id'], $ordenes);
+            $rutapuntos[$key]['orden']=$pos+1;
         }
-
-
-
-
-
-
-        $newpos=0;
-        foreach($orden as $key=>$rutapunto)
-        {
-            $newpos++;
-            if((int)$rutapunto['id']==(int)$puntoreq['id'])
-            {
-                $val[]=$newpos.' --- '.$key.' ---> '.$rutapunto['orden'].' - '.$newpos.' --> Coinciden los ids en Key='.$key;
-                $rutapuntos[$key]['orden']=$newpos;
-            } else {
-
-                if($rutapunto['orden']!=$newpos)
-                {
-                    $val[]=$newpos.' --- '.$key.' ---> '.$rutapunto['orden'].' - '.$newpos.' --> Cambiamos el orden en posición '.$newpos.'-->'.$key;
-                    $rutapuntos[$key]['orden']=$newpos;
-                
-                } else {
-                    $val[]=$newpos.' --- '.$key.' ---> '.$rutapunto['orden'].' - '.$newpos.' --> Pasa';
-                }
-
-            }
-        }
-        //return $val;
         return $rutapuntos;
-
-
 
     }
 
@@ -299,15 +325,12 @@ class RutapuntoController extends Controller
 
         //Paso 2: Obtenemos los datos del punto
         $punto = $this->showXId($id);
-        //return $punto;
         $punto = @json_decode(json_encode($punto), true);
-        //return $punto;
         $punto = $punto['original']['data'][0];
         //return $punto;
 
         //Paso 3: Obtenemos los puntos actuales de la ruta
         $rutapuntos = app('App\Http\Controllers\rutaController')->showXId($punto['ruta']['id']);
-        //return $rutapuntos;
         $rutapuntos = @json_decode(json_encode($rutapuntos), true);
         //return $rutapuntos;
         $rutapuntos = $rutapuntos['original']['data'];
@@ -323,9 +346,7 @@ class RutapuntoController extends Controller
 
         //Paso 4: Obtenemos los puntos de la ciudad
         $puntos = app('App\Http\Controllers\PuntoController')->showXCiudad($punto['ciudad'][0]['id']);
-        //return $puntos;
         $puntos = @json_decode(json_encode($puntos), true);
-        //return $puntos;
         $puntos = $puntos['original']['data'];
         //return $puntos;
 
@@ -344,26 +365,14 @@ class RutapuntoController extends Controller
 
         //Paso 6: Obtenemos los puntos de la ruta por orden
         $puntosorden = $this->showXRutaOrden($punto['ruta_id']);
-        //return $puntosorden;
         $puntosorden = @json_decode(json_encode($puntosorden), true);
-        //return $puntosorden;
         $puntosorden = $puntosorden['original']['data'];
         //return $puntosorden;
         //return $punto;
+
         //Paso 7: Enviamos a la vista
         return view('paginas.master.RutaPuntoModificar', compact('id', 'punto', 'puntos', 'puntosorden'));
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public function rutaPuntoModificar2(Request $request, $id)
     {
@@ -375,31 +384,29 @@ class RutapuntoController extends Controller
         {
             $errors[] = "Error en los datos del punto";
         }
-
+        if($puntoreq['punto_id']!=(int)$puntoreq['punto_id'] || $puntoreq['punto_id']==0)
+        {
+            $errors[] = "Error en los datos del id de punto";
+        }
         if($puntoreq['ciudad_id']!=(int)$puntoreq['ciudad_id'] || $puntoreq['ciudad_id']==0)
         {
             $errors[] = "Error en los datos de la ciudad";
         }
-
         if($puntoreq['ruta_id']!=(int)$puntoreq['ruta_id'] || $puntoreq['ruta_id']==0)
         {
             $errors[] = "Error en los datos de la ruta";
         }
-
         if($puntoreq['orden']!=(int)$puntoreq['orden'] || $puntoreq['orden']==0)
         {
             $errors[] = "Error en los datos del orden del punto";
         }
-
         if($id!=(int)$id || $id==0) {
             $errors[] = "Error en datos iniciales";
         }
 
         //Paso 3: Obtenemos los puntos actuales de la ruta
         $rutapuntos = app('App\Http\Controllers\rutaController')->showXId($puntoreq['ruta_id']);
-        //return $rutapuntos;
         $rutapuntos = @json_decode(json_encode($rutapuntos), true);
-        //return $rutapuntos;
         $rutapuntos = $rutapuntos['original']['data'];
         //return $rutapuntos;
 
@@ -413,29 +420,34 @@ class RutapuntoController extends Controller
         //return $puntosruta;
 
         //Paso 4: Obtenemos los puntos de la ciudad
-        $orden = $this->ordenPuntos($puntoreq, $rutapuntos['rutapunto']);
-        return $orden;
-        $puntos = @json_decode(json_encode($puntos), true);
-        //return $puntos;
-        $puntos = $puntos['original']['data'];
+        $orden = $this->ordenPuntos($puntoreq);
+        //return $orden;
+        $orden = @json_decode(json_encode($orden), true);
+        //return $orden;
 
+        //Paso 5: cambiamos el array de puntos por los nuevos
+        unset($rutapuntos['rutapunto']);
+        $rutapuntos['rutapunto']=$orden;
+        //return $rutapuntos;
+        //return $rutapuntos['rutapunto'];
 
+        //Paso 6: Actualizamos los datos de los puntos
+        foreach($rutapuntos['rutapunto'] as $key=>$rutapunto)
+        {
+            $puntomod = $this->update($rutapunto, $id);
+            //return $puntomod;
+        }
 
-
-
-
-
-
-
-
-
+        //Paso 6: Realizamos nuevamente la consulta
+        $rutapuntos = app('App\Http\Controllers\rutaController')->showXId($puntoreq['ruta_id']);
+        $rutapuntos = @json_decode(json_encode($rutapuntos), true);
+        $rutapuntos = $rutapuntos['original']['data'];
+        //return $rutapuntos;
 
 
         //Paso 4: Obtenemos los puntos de la ciudad
-        $puntos = app('App\Http\Controllers\PuntoController')->showXCiudad($punto['ciudad'][0]['id']);
-        //return $puntos;
+        $puntos = app('App\Http\Controllers\PuntoController')->showXCiudad($puntoreq['ciudad_id']);
         $puntos = @json_decode(json_encode($puntos), true);
-        //return $puntos;
         $puntos = $puntos['original']['data'];
         //return $puntos;
 
@@ -448,20 +460,13 @@ class RutapuntoController extends Controller
                 $buenos[]=$todo;
             }
         }
-        //return $buenos;
         $puntos=$buenos;
+        //return $puntos;
 
-        //Paso 6: Obtenemos los puntos de la ruta por orden
-        $puntosorden = $this->showXRutaOrden($punto['ruta_id']);
-        //return $puntosorden;
-        $puntosorden = @json_decode(json_encode($puntosorden), true);
-        //return $puntosorden;
-        $puntosorden = $puntosorden['original']['data'];
-        //return $puntosorden;
+        //Paso 6: Enviamos a la vista
+        return redirect()->action('RutapuntoController@rutaPuntoModificar', compact('id'));
 
-        //Paso 7: Enviamos a la vista
-        return view('paginas.master.RutaPuntoModificar', compact('id', 'punto', 'puntos', 'puntosorden'));
-
+        //return view('paginas.master.RutaPuntoModificar', compact('id', 'punto', 'puntos', 'puntosorden'));
     }
 
     public function rutaPuntoBorrar($id)

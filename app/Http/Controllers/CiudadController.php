@@ -95,6 +95,7 @@ class CiudadController extends Controller
             ->join('provincias', 'provincias.id', '=', 'ciudads.provincia_id')
             ->join('estados', 'estados.id', '=', 'provincias.estado_id')
             ->select('ciudads.nombre as ciudad', 'provincias.nombre as provincia', 'estados.nombre as estado')
+            ->where('ciudads.visible', '=', 1)
             ->orderBy('estados.nombre')
             ->orderBy('provincias.nombre')
             ->orderBy('ciudads.nombre')
