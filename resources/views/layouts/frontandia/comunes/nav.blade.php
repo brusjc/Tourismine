@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="top-navbar-1">
             <ul class="nav navbar-nav navbar-right">
                 @if(!Auth::guest())
-                    @if(Auth::user()->roll_id==99)
+                    @if(Auth::user()->roll_id>=50)
                         <li>
                             <a href="/es/master"><i class="fa fa-key fa-2x misvg"></i><br>{{ trans('message.master') }}</a>
                         </li>

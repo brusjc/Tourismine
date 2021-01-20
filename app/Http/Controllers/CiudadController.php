@@ -119,7 +119,6 @@ class CiudadController extends Controller
 //*******
     public function ciudades($idm)
     {
-
         //Paso 1.- Ejecutamos la consulta
         $ciudades=$this->showConPuntos();
         $ciudades = @json_decode(json_encode($ciudades), true);

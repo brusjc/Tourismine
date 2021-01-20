@@ -26,7 +26,7 @@
         </li>
 
         @if (! Auth::guest())
-          @if(Auth::user()->roll_id==99)
+          @if(Auth::user()->roll_id>=50)
             <li class="nav-item">
               <a href="/es/master" class="nav-link">
                 <i class="nav-icon far fa-image"></i>

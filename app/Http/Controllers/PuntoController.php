@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Auth;
 use App\Punto;
-use App\Provincia;
-use App\usuariosPuntosInteres;
 use App\Http\Requests\PuntoRequest;
 
 //app\Http\Requests\PuntoRequest;
@@ -225,14 +224,43 @@ class PuntoController extends Controller
     //API: Todos los puntos ordenados por provincia
     public function showXProvincia() 
     {
-        try
+        $roll = Auth::user()->roll_id;
+        $usuario = Auth::user()->id;
+        //return $roll;
+
+        if($roll==99)
         {
-            $dato = Punto::orderBy('ciudad_id', 'asc')
-                ->with('Ciudad')
-                ->with('Provincia')
-                ->get();
-        } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            try
+            {
+                $dato = Punto::orderBy('ciudad_id', 'asc')
+                    ->with('Ciudad')
+                    ->with('Provincia')
+                    ->get();
+            } catch (\Exception $e) {
+                return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            }
+        } else if($roll==51){
+            try
+            {
+                $dato = Punto::whereHas('Editorpunto', function($q) use ($usuario) {$q->where('user_id', $usuario);} )
+                    ->with(['Ciudad' => function($query){ $query->orderBy('nombre','ASC');}])
+                    ->with(['Provincia' => function($query){ $query->orderBy('nombre','ASC');}])
+                    ->orderBy('ciudad_id', 'ASC')
+                    ->get();
+            } catch (\Exception $e) {
+                return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            }
+        } else {
+            try
+            {
+                $dato = Punto::orderBy('ciudad_id', 'asc')
+                    ->with('Ciudad')
+                    ->with('Provincia')
+                    ->where('visible', '1')
+                    ->get();
+            } catch (\Exception $e) {
+                return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            }
         }
 
         if(count($dato)==0)
@@ -250,18 +278,46 @@ class PuntoController extends Controller
         if($id==0) {
             return response()->json(['status'=>['error'=>3, 'message'=>'Error en datos iniciales'], 'data'=>null]);
         }
+        $roll = Auth::user()->roll_id;
+        //return $roll;
 
         //Paso 2: realizamos la consulta
-        try
+        if($roll==99)
         {
-            $dato = Punto::where('ciudad_id', $id)
-                ->where('visible', 1)
-                ->with('Ciudad')
-                ->with('Provincia')
-                ->orderBy('nombre', 'asc')
-                ->get();
-        } catch (\Exception $e) {
-            return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            try
+            {
+                $dato = Punto::where('ciudad_id', $id)
+                    ->with('Ciudad')
+                    ->with('Provincia')
+                    ->orderBy('nombre', 'asc')
+                    ->get();
+            } catch (\Exception $e) {
+                return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            }
+        } else if($roll==51){
+            try
+            {
+                $dato = Punto::where('ciudad_id', $id)
+                    ->with('Ciudad')
+                    ->with('Provincia')
+                    ->with('EditorPuntos')
+                    ->orderBy('nombre', 'asc')
+                    ->get();
+            } catch (\Exception $e) {
+                return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            }
+        } else {
+            try
+            {
+                $dato = Punto::where('ciudad_id', $id)
+                    ->where('visible', 1)
+                    ->with('Ciudad')
+                    ->with('Provincia')
+                    ->orderBy('nombre', 'asc')
+                    ->get();
+            } catch (\Exception $e) {
+                return response()->json(['status'=>['error'=>1, 'message'=>"Error en consulta"], 'data'=>null]);
+            }
         }
 
         if(count($dato)==0)
@@ -456,6 +512,7 @@ class PuntoController extends Controller
     public function masterPuntos($message=null)
     {
         $puntos=$this->showXProvincia();
+        //return $puntos;
         $puntos = @json_decode(json_encode($puntos), true);
         $puntos=$puntos['original'];
         if($message)
@@ -489,72 +546,84 @@ class PuntoController extends Controller
         //Paso 1: Sanitizamos las variables
         $punto=$request->all();
         //return $punto;
-        if($punto['nombre']!=strip_tags($punto['nombre']) || $punto['nombre'] == "")
-        {
-            $errors[]="Error al obtener el nombre del punto";
-        }
+        if(isset($punto)){
+            if($punto['nombre']!=strip_tags($punto['nombre']) || $punto['nombre'] == "")
+            {
+                $errors[]="Error al obtener el nombre del punto";
+            }
 
-        if($punto['ciudad_id']!=strip_tags($punto['ciudad_id']) || $punto['ciudad_id'] == "")
-        {
-            $errors[]="Error al obtener la ciudad del punto";
-        }
+            if($punto['ciudad_id']!=strip_tags($punto['ciudad_id']) || $punto['ciudad_id'] == "")
+            {
+                $errors[]="Error al obtener la ciudad del punto";
+            }
 
-        if($punto['direccion']!=strip_tags($punto['direccion']) || $punto['direccion'] == "")
-        {
-            $errors[]="Error al obtener la direccion del punto";
-        }
+            if($punto['direccion']!=strip_tags($punto['direccion']) || $punto['direccion'] == "")
+            {
+                $errors[]="Error al obtener la direccion del punto";
+            }
 
-        if($punto['cpostal'] != (int)$punto['cpostal'] || $punto['cpostal'] == 0)
-        {
-            $errors[]="Error al obtener el código postal del punto";
-        }
+            if($punto['cpostal'] != (int)$punto['cpostal'] || $punto['cpostal'] == 0)
+            {
+                $errors[]="Error al obtener el código postal del punto";
+            }
 
-        $punto['telefono'] = str_replace(' ', '', $punto['telefono']);
-        if($punto['telefono'] != (int)$punto['telefono'] || strlen($punto['telefono'])==0 || $punto['telefono'] == 0)
-        {
-            $errors[]="Error al obtener el teléfono del punto";
-        }
+            $punto['telefono'] = str_replace(' ', '', $punto['telefono']);
+            if($punto['telefono'] != (int)$punto['telefono'] || strlen($punto['telefono'])==0 || $punto['telefono'] == 0)
+            {
+                $errors[]="Error al obtener el teléfono del punto";
+            }
 
-        if($punto['longitud'] != (float)$punto['longitud'] || $punto['longitud'] == 0)
-        {
-            $errors[]="Error al obtener la longitud del punto";
-        }
+            if($punto['longitud'] != (float)$punto['longitud'] || $punto['longitud'] == 0)
+            {
+                $errors[]="Error al obtener la longitud del punto";
+            }
 
-        if($punto['latitud'] != (float)$punto['latitud'] || $punto['latitud'] == 0)
-        {
-            $errors[]="Error al obtener la latitud del punto";
-        }
+            if($punto['latitud'] != (float)$punto['latitud'] || $punto['latitud'] == 0)
+            {
+                $errors[]="Error al obtener la latitud del punto";
+            }
 
-        if($punto['horario_id'] != (int)$punto['horario_id'] || $punto['horario_id'] == 0)
-        {
-            $errors[]="Error al obtener el horario del punto";
-        }
+            if($punto['horario_id'] != (int)$punto['horario_id'] || $punto['horario_id'] == 0)
+            {
+                $errors[]="Error al obtener el horario del punto";
+            }
 
-        if($punto['tipo_id'] != (int)$punto['tipo_id'] || $punto['tipo_id'] == 0)
-        {
-            $errors[]="Error al obtener el horario del punto";
-        }
+            if($punto['tipo_id'] != (int)$punto['tipo_id'] || $punto['tipo_id'] == 0)
+            {
+                $errors[]="Error al obtener el horario del punto";
+            }
 
-        if($punto['puntos'] != (int)$punto['puntos'] || $punto['puntos'] == 0)
-        {
-            $errors[]="Error al obtener la puntuación del punto";
-        }
+            if($punto['puntos'] != (int)$punto['puntos'] || $punto['puntos'] == 0)
+            {
+                $errors[]="Error al obtener la puntuación del punto";
+            }
 
-        if($punto['descripcion']!=strip_tags($punto['descripcion']) || $punto['descripcion'] == "")
-        {
-            $errors[]="Error al obtener la descripcion del punto";
-        }
-
-        if($punto['etiquetas']!=strip_tags($punto['etiquetas']) || $punto['etiquetas'] == "")
-        {
-            $errors[]="Error al obtener las etiquetas del punto";
+            if($punto['descripcion']!=strip_tags($punto['descripcion']) || $punto['descripcion'] == "")
+            {
+                $errors[]="Error al obtener la descripcion del punto";
+            }
+            if($punto['etiquetas']!=strip_tags($punto['etiquetas']) || $punto['etiquetas'] == "")
+            {
+                $errors[]="Error al obtener las etiquetas del punto";
+            }
         }
         //Paso 2: Creamos el punto nuevo
         if(!isset($errors))
         {
+            //Incluimos el punto en la BD
             $respunto = $this->store($punto);
             $respunto = @json_decode(json_encode($respunto), true);
             //return $respunto;
+
+            //Asignamos el punto al editor
+            $editorpunto['user_id'] = Auth::user()->id;
+            $editorpunto['punto_id'] = $respunto['original']['data']['id'];
+            //return $editorpunto;
+            $reseditor = app('App\Http\Controllers\EditorpuntoController')->store($editorpunto);
+            //return $reseditor;
+            $reseditor = @json_decode(json_encode($reseditor), true);
+            //return $reseditor;
+
             if($respunto['original']['status']['error']==0)
             {
                 $message="Punto de interés incluido en la base de datos";

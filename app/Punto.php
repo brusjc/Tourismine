@@ -33,4 +33,10 @@ class Punto extends Model
         return $this->belongsTo('App\Tipo');
 	}
 
+    //Creamos relación con la tabla Editorpunto
+    public function editorpunto() {
+        return $this->hasMany('App\Editorpunto');
+    }
+
+
 }

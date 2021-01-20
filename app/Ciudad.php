@@ -12,12 +12,12 @@ class Ciudad extends Model
     //**************
 
 	//Creamos relación con la tabla provincia
-	public function provincia() {
+	public function Provincia() {
 		return $this->belongsTo('App\Provincia');
 	}
 
 	//Creamos relación con la tabla punto
-	public function punto() {
+	public function Punto() {
 		return $this->hasMany('App\Punto');
 	}
 }

@@ -1,11 +1,5 @@
 <?php
 
-
-//Ruta para cliente Password
-Route::get('/client', 'ClientController@index')->middleware('auth');
-//Route::get('/client', function(){ return view('paginas.client'); })->middleware('auth');
-
-
 Auth::routes();
 
 Route::get('lang/{lang}', function($lang) {
@@ -13,13 +7,11 @@ Route::get('lang/{lang}', function($lang) {
   return \Redirect::back();
 })->middleware('web')->name('change_lang');
 
-
 Route::get('/', 'HomeController@home2');
 Route::get('/home', 'HomeController@home2');
 Route::get('/{idm}/', 'HomeController@home')->name('Home');
 
 //Prueba formularios anidados
-Route::get('/formanidados', 'estadoController@formanidados')->name('formanidados');
 Route::get('/provinciasXEstado/{estado}', 'provinciaController@showXEstado')->name('provinciasXEstado');
 Route::get('/{idm}/ciudades', 'CiudadController@ciudades')->name('ciudades');
 Route::get('/{idm}/Espana', 'EspanaController@Espana')->name('Espana');
@@ -102,4 +94,10 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //Pruebas
-    Route::get('/es/prueba', function(){ return view('paginas.pruebas.bootstrap');});
+    //Route::get('/formanidados', 'estadoController@formanidados')->name('formanidados');
+    //Route::get('/es/prueba', function(){ return view('paginas.pruebas.bootstrap');});
+
+
+//Ruta para cliente Password
+//Route::get('/client', 'ClientController@index')->middleware('auth');
+//Route::get('/client', function(){ return view('paginas.client'); })->middleware('auth');
